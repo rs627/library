@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Information Literacy: Authority &amp; Strategic Searching</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-mark">Duke University Libraries</span>
+        <span class="brand-sub">Information Literacy Module</span>
+      </div>
+      <ol class="progress" aria-label="Module progress">
+        <li data-step="welcome" class="progress-step is-active">Welcome</li>
+        <li data-step="authority" class="progress-step">Authority</li>
+        <li data-step="searching" class="progress-step">Searching</li>
+        <li data-step="wrapup" class="progress-step">Wrap-up</li>
+      </ol>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- WELCOME -->
+    <section id="step-welcome" class="step">
+      <h1>Authority &amp; Strategic Searching</h1>
+      <p class="lede">
+        This short module covers two ideas from the ACRL Framework for Information Literacy
+        that show up in almost every research project you'll do at Duke.
+      </p>
+      <div class="frame-cards">
+        <div class="frame-card">
+          <h2>Authority Is Constructed and Contextual</h2>
+          <p>"Best source" depends on what you're trying to do. You'll practice matching real
+            research situations to the source that's the strongest authority for that specific case.</p>
+        </div>
+        <div class="frame-card">
+          <h2>Searching as Strategic Exploration</h2>
+          <p>Good searching is iterative — you refine as you go. You'll run a simulated
+            database search and watch how your results change as you sharpen your query.</p>
+        </div>
+      </div>
+      <p class="est-time">Estimated time: 10&ndash;15 minutes</p>
+      <button type="button" class="btn btn-primary" data-action="start">Start the module</button>
+    </section>
+
+    <!-- AUTHORITY ACTIVITY -->
+    <section id="step-authority" class="step" hidden>
+      <h1>Authority Is Constructed and Contextual</h1>
+      <p class="prompt" id="authority-prompt"></p>
+
+      <div class="activity-authority">
+        <div class="need-column">
+          <h2>Research situations</h2>
+          <ul id="need-list" class="need-list"></ul>
+        </div>
+        <div class="source-column">
+          <h2>Best source</h2>
+          <ul id="source-list" class="source-list"></ul>
+        </div>
+      </div>
+
+      <div id="authority-status" class="status-line" aria-live="polite"></div>
+
+      <div class="step-actions">
+        <button type="button" class="btn btn-secondary" data-action="check-authority">Check my answers</button>
+        <button type="button" class="btn btn-primary" data-action="continue-authority" disabled>Continue</button>
+      </div>
+    </section>
+
+    <!-- SEARCHING ACTIVITY -->
+    <section id="step-searching" class="step" hidden>
+      <h1>Searching as Strategic Exploration</h1>
+      <p class="prompt" id="searching-prompt"></p>
+      <p class="note" id="searching-note"></p>
+
+      <form id="search-form" class="search-form">
+        <label for="search-input" class="sr-only">Search the mock library database</label>
+        <input type="text" id="search-input" class="search-input" placeholder="Try a search term…" autocomplete="off">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <div id="search-result" class="search-result" aria-live="polite"></div>
+
+      <h2 class="history-heading">Your search history</h2>
+      <ol id="search-history" class="search-history"></ol>
+
+      <div class="step-actions">
+        <button type="button" class="btn btn-primary" data-action="continue-searching" disabled>Continue</button>
+      </div>
+    </section>
+
+    <!-- WRAP UP -->
+    <section id="step-wrapup" class="step" hidden>
+      <h1>Nice work</h1>
+      <p id="wrapup-score" class="wrapup-score"></p>
+
+      <h2>Key takeaways</h2>
+      <ul class="takeaways">
+        <li><strong>Authority is constructed and contextual.</strong> There's no universal "best" source —
+          the right authority depends on your specific research need.</li>
+        <li><strong>Searching is strategic exploration.</strong> Your first query is a starting point, not
+          a final answer. Expect to revise your keywords, add or drop concepts, and use tools like
+          quotation marks and Boolean operators (AND / OR / NOT) to sharpen your results.</li>
+      </ul>
+
+      <p class="closing">
+        Need help applying this to a real assignment? Duke University Libraries subject librarians
+        can meet with you one-on-one — look for "Ask a Librarian" on the library website.
+      </p>
+
+      <button type="button" class="btn btn-primary" data-action="finish">Finish module</button>
+    </section>
+
+  </main>
+</div>
+
+<script src="js/scorm-api.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
