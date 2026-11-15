@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Find an ebook</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#E9ECF1}
+a{color:#012169}a:hover{color:#00539B}
+button,input,select{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 100%; min-height: 2300px; box-sizing: border-box; background: #E9ECF1; font-family: 'Noto Sans', system-ui, sans-serif; color: #262626; padding: 24px; display: flex; flex-direction: column; gap: 20px">
+
+  <div style="max-width: 1392px; width: 100%; margin: 0 auto; box-sizing: border-box; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; background: #1B2333; color: #FFFFFF; border-radius: 12px; padding: 18px 24px">
+    <div style="display: flex; flex-direction: column; gap: 4px; max-width: 780px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #F2C14E">Lesson 4 of 5 · Your task</div>
+      <div style="font-size: 20px; font-weight: 700; line-height: 1.35">It’s 10 p.m. and you’re in your dorm. Turn a quick search into a focused one, then find an <em>ebook</em> about AI and college writing that you can start reading tonight.</div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 6px">
+      <sc-for list="{{steps}}" as="s" hint-placeholder-count="5">
+        <div style="{{s.style}}">{{s.label}}</div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div aria-live="polite" style="max-width: 1392px; width: 100%; margin: 0 auto; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; background: #FFFFFF; border: 1px solid #D3D7DE; border-left: 6px solid #F2C14E; border-radius: 12px; padding: 14px 20px">
+    <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478; white-space: nowrap">Step {{stepN}} of 5 · {{stepName}}</span>
+    <span style="flex: 1 1 420px; font-size: 16px; line-height: 1.5; color: #1B2333">{{instruction}}</span>
+  </div>
+
+  <div style="max-width: 1392px; width: 100%; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+
+    <div style="flex: 999 1 680px; min-width: 0; background: #FFFFFF; border-radius: 12px; overflow: hidden; border: 1px solid #D3D7DE; min-height: 900px; position: relative">
+      <sc-if value="{{showCoach}}" hint-placeholder-val="{{ false }}">
+        <div role="status" aria-live="polite" aria-label="Coach" style="position: absolute; z-index: 20; top: 132px; right: 24px; width: 460px; max-width: calc(100% - 48px); box-sizing: border-box; display: flex; gap: 14px; align-items: flex-start; background: #FFFFFF; border: 2px solid #012169; border-radius: 16px; padding: 16px 18px; box-shadow: 0 18px 44px rgba(1,33,105,0.28)">
+          <img src="/_blob/6b8bda79a7ceaa4be1f36470ec8c0fdf" alt="" style="width: 64px; height: auto; flex-shrink: 0">
+          <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
+            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #012169">Coach · {{coachTitle}}</div>
+            <div style="font-size: 16px; line-height: 1.6; color: #262626">{{coach}}</div>
+            <button type="button" onClick="{{hideCoach}}" style="align-self: flex-start; min-height: 40px; padding: 0 16px; border-radius: 8px; border: none; background: #012169; color: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer">Got it</button>
+          </div>
+        </div>
+      </sc-if>
+      <div style="background: #012169; color: #FFFFFF; padding: 12px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 20px">
+        <div style="font-size: 13px; font-weight: 800; letter-spacing: 0.06em; line-height: 1.1; text-transform: uppercase">Practice<br>Catalog</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 18px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #E6ECF7">
+          <span>New Search</span><span>Research Databases</span><span>Search Tips</span><span>My Accounts</span><span>Ask a Librarian</span><span>More Search Options</span>
+        </div>
+      </div>
+
+      <sc-if value="{{showBox}}" hint-placeholder-val="{{ true }}">
+        <div style="background: #012169; padding: 8px 24px 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center">
+          <label for="scope" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Search scope</label>
+          <select id="scope" style="min-height: 44px; border-radius: 22px; border: none; padding: 0 16px; font-size: 14px; color: #262626; background: #FFFFFF">
+            <option>Books &amp; Media (Catalog)</option>
+            <option>Articles</option>
+          </select>
+          <div style="flex: 1 1 420px; max-width: 760px; display: flex; align-items: center; background: #FFFFFF; border-radius: 22px; padding: 0 6px 0 18px; min-height: 44px">
+            <label for="q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Search the catalog</label>
+            <input id="q" type="search" autocomplete="off" value="{{query}}" onChange="{{onQuery}}" onKeyDown="{{onKey}}" placeholder="Search for books, articles, media and more" style="flex-grow: 1; min-width: 0; border: none; outline: none; font-size: 15px; color: #262626; min-height: 40px; background: transparent">
+            <button type="button" onClick="{{runSearch}}" aria-label="Search" style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 20px; border: none; background: #E6ECF7; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#012169" stroke-width="2.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg></button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isBuild}}" hint-placeholder-val="{{ true }}">
+        <div style="padding: 20px 24px 32px; display: flex; flex-direction: column; gap: 18px">
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+            <div style="{{countBoxStyle}}">
+              <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Results</div>
+              <div style="font-size: 40px; font-weight: 800; line-height: 1; color: #1B2333">{{countText}}</div>
+              <div style="font-size: 13px; color: #46506A">{{countNote}}</div>
+            </div>
+            <div style="flex: 1 1 360px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+              <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Top of the list</div>
+              <div style="font-size: 15px; line-height: 1.5; color: #333333">{{previewSummary}}</div>
+              <sc-for list="{{preview}}" as="p" hint-placeholder-count="3">
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 10px 12px; border: 1px solid #E1E4EA; border-radius: 8px">
+                  <span style="font-size: 14px; color: #012169; min-width: 0; flex: 1 1 240px">{{p.t}}</span>
+                  <span style="{{p.pill}}">{{p.a}}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <sc-if value="{{reached}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; padding: 14px 16px; border-radius: 10px; background: #E3F4F2; border: 1px solid #9FD3CE">
+              <div style="font-size: 15px; line-height: 1.5; color: #0B3D3A; flex: 1 1 360px"><strong>That’s a strong search.</strong> It covers all three concepts, catches books that use different words, and reads the way you mean it. The 70 results aren’t a magic number; they’re what a complete strategy finds. Time to skim them.</div>
+              <button type="button" onClick="{{toResults}}" style="min-height: 48px; padding: 0 22px; border-radius: 10px; border: none; background: #012169; color: #FFFFFF; font-size: 15px; font-weight: 700; cursor: pointer">See all 70 results</button>
+            </div>
+          </sc-if>
+
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Your searches</div>
+            <sc-for list="{{history}}" as="h" hint-placeholder-count="2">
+              <div style="display: flex; gap: 12px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid #EEF0F4">
+                <span style="width: 70px; flex-shrink: 0; text-align: right; font-size: 14px; font-weight: 700; color: #1B2333">{{h.c}}</span>
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.5; color: #46506A; overflow-wrap: anywhere">{{h.q}}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font-size: 12px; color: #5A6478">Practice catalog: result counts are approximate.</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isResults}}" hint-placeholder-val="{{ false }}">
+        <div style="max-width: 1040px; margin: 0 auto; padding: 14px 24px 32px; display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; gap: 28px; border-bottom: 1px solid #DDDDDD; font-size: 13px">
+            <span style="padding: 8px 2px; border-bottom: 3px solid #012169; font-weight: 700; color: #012169">All</span>
+            <span style="padding: 8px 2px; color: #333333">Books</span><span style="padding: 8px 2px; color: #333333">Video</span><span style="padding: 8px 2px; color: #333333">Audio</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+            <span style="font-size: 13px; font-weight: 600; color: #012169">All Filters</span>
+            <button type="button" onClick="{{fOnline}}" aria-pressed="{{onlinePressed}}" style="{{onlineStyle}}">Available online</button>
+            <button type="button" onClick="{{fPhysical}}" aria-pressed="{{physicalPressed}}" style="{{physicalStyle}}">Physical items</button>
+            <span style="margin-left: auto; font-size: 13px; color: #333333">Sort by <strong style="color: #012169">Relevance</strong></span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+            <div style="flex: 1 1 180px; max-width: 220px; display: flex; flex-direction: column; font-size: 13px; color: #262626">
+              <div style="font-weight: 700; padding: 8px 0; border-bottom: 1px solid #DDDDDD">Filter your results</div>
+              <sc-for list="{{facets}}" as="fc" hint-placeholder-count="8">
+                <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #EEEEEE"><span>{{fc}}</span><span style="color: #012169; font-weight: 700">+</span></div>
+              </sc-for>
+            </div>
+            <div style="flex: 999 1 420px; min-width: 0; border: 1px solid #DDDDDD; border-radius: 6px">
+              <div style="padding: 10px 14px; border-bottom: 1px solid #DDDDDD; font-size: 13px; color: #333333; display: flex; gap: 12px; align-items: center"><span style="width: 14px; height: 14px; border: 1px solid #8A8F99; border-radius: 2px"></span><span>{{countLabel}}</span><span style="color: #012169">10 per page ▾</span></div>
+              <sc-for list="{{results}}" as="r" hint-placeholder-count="10">
+                <div style="{{r.rowStyle}}">
+                  <span style="width: 14px; height: 14px; flex-shrink: 0; margin-top: 4px; border: 1px solid #8A8F99; border-radius: 2px"></span>
+                  <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0; flex-grow: 1">
+                    <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 11px; color: #333333; letter-spacing: 0.04em"><span><span style="display: inline-block; min-width: 18px; padding: 1px 5px; margin-right: 8px; border: 1px solid #DDDDDD; border-radius: 3px; text-align: center">{{r.n}}</span>BOOK</span><span style="padding: 1px 6px; border-radius: 3px; background: #EEEEEE; color: #555555">Paperpile</span></div>
+                    <button type="button" onClick="{{r.pick}}" style="padding: 0; border: none; background: transparent; text-align: left; font-size: 16px; line-height: 1.4; color: #012169; cursor: pointer; min-height: 28px">{{r.title}}</button>
+                    <div style="font-size: 13px; color: #333333">{{r.authors}}</div>
+                    <div style="font-size: 13px; color: #333333">{{r.pub}}</div>
+                    <div style="{{r.pillStyle}}"><sc-if value="{{r.notAvail}}" hint-placeholder-val="{{ false }}"><span style="width: 7px; height: 7px; border-radius: 4px; background: #E07A2E"></span></sc-if>{{r.avail}}</div>
+                  </div>
+                </div>
+              </sc-for>
+              <div style="display: flex; justify-content: center; gap: 6px; padding: 16px; font-size: 13px; color: #333333">
+                <span style="width: 28px; height: 28px; border-radius: 14px; border: 2px solid #012169; color: #012169; display: flex; align-items: center; justify-content: center; font-weight: 700">1</span>
+                <span style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center">2</span>
+                <span style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center">3</span>
+                <span style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center">4</span>
+                <span style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center">5</span>
+                <span style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center">›</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isRecord}}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 20px 32px 32px; display: flex; flex-direction: column; gap: 12px">
+          <button type="button" onClick="{{backToResults}}" aria-label="Back to results" style="width: 44px; height: 44px; border-radius: 22px; border: none; background: #EEF1F6; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#012169" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></button>
+          <div style="font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: #333333">BOOK</div>
+          <div style="font-size: 26px; line-height: 1.25"><strong style="font-weight: 700">Rethinking writing education in the age of generative AI</strong> / edited by Chaoran Wang and Zhongfeng Tian.</div>
+          <div style="font-size: 14px; color: #333333">Basgier, Christopher; Wang, Chaoran, editor; Tian, Zhongfeng, editor.</div>
+          <div style="font-size: 14px; color: #333333">2025; Taylor &amp; Francis; Abingdon, England ; New York, New York : Routledge</div>
+          <div style="display: inline-flex; align-items: center; width: fit-content; padding: 5px 14px; border: 2px solid #012169; border-radius: 8px; font-size: 14px; font-weight: 600; color: #012169">Available Online</div>
+          <div style="border-top: 1px solid #B9A99A; margin-top: 16px; padding-top: 18px; font-size: 22px">View Online</div>
+          <div style="background: #F0EFEE; border-radius: 4px; padding: 20px 16px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px">
+            <div style="display: flex; flex-direction: column; gap: 4px; font-size: 15px; line-height: 1.5">
+              <div style="font-weight: 600; color: #012169">Full text available at: [eBook platform]</div>
+              <div style="color: #333333">Available from 2025.</div>
+            </div>
+            <button type="button" onClick="{{openOnline}}" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 2px solid #F2C14E; background: #FFF8E6; cursor: pointer; font-size: 15px; font-weight: 600; color: #012169"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#012169" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"></path></svg>Read online</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isAccess}}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 48px 32px; display: flex; justify-content: center; background: #F4F6F9; min-height: 520px; box-sizing: border-box">
+          <div style="width: 100%; max-width: 560px; background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px; align-self: flex-start">
+            <div style="width: 48px; height: 48px; border-radius: 24px; background: #E8ECF6; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#012169" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 018 0v4"></path></svg></div>
+            <div style="font-size: 20px; font-weight: 700; color: #1B2333">You’re off campus, so the ebook site asks you to sign in before it opens.</div>
+            <div style="font-size: 15px; line-height: 1.6; color: #46506A">This step is shown as a description only. In the real catalog you’d see a sign-in page here.</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isDone}}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 48px 32px; display: flex; justify-content: center; background: #F4F6F9; min-height: 520px; box-sizing: border-box">
+          <div style="width: 100%; max-width: 560px; background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 12px; align-self: flex-start">
+            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Now reading</div>
+            <div style="font-size: 22px; font-weight: 800; line-height: 1.3; color: #1B2333">Rethinking writing education in the age of generative AI</div>
+            <div style="font-size: 15px; color: #46506A">Edited by Chaoran Wang and Zhongfeng Tian · Routledge, 2025</div>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px">
+              <div style="height: 10px; border-radius: 5px; background: #E6E9EF; width: 92%"></div>
+              <div style="height: 10px; border-radius: 5px; background: #E6E9EF; width: 100%"></div>
+              <div style="height: 10px; border-radius: 5px; background: #E6E9EF; width: 84%"></div>
+              <div style="height: 10px; border-radius: 5px; background: #E6E9EF; width: 96%"></div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+      <sc-if value="{{isBuild}}" hint-placeholder-val="{{ true }}">
+        <div style="background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Your notes from Lesson 1</div>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <div style="font-size: 15px; font-weight: 700; color: #1B2333">Concepts and other words</div>
+            <div style="font-size: 14px; line-height: 1.55; color: #262626; padding: 8px 10px; border-radius: 8px; background: #F4F6F9"><strong>Generative AI:</strong> ChatGPT, large language models, artificial intelligence</div>
+            <div style="font-size: 14px; line-height: 1.55; color: #262626; padding: 8px 10px; border-radius: 8px; background: #F4F6F9"><strong>Authorship:</strong> plagiarism, originality, creativity</div>
+            <div style="font-size: 14px; line-height: 1.55; color: #262626; padding: 8px 10px; border-radius: 8px; background: #F4F6F9"><strong>College writing:</strong> composition, academic writing, rhetoric</div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 12px; border-top: 1px solid #E6E9EF">
+            <div style="font-size: 15px; font-weight: 700; color: #1B2333">Building a search strategy</div>
+            <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 1.55; color: #262626">
+              <li>Concepts, not sentences</li>
+              <li>Same idea, other words → <strong style="font-family: 'IBM Plex Mono', monospace">OR</strong> (wider)</li>
+              <li>OR words in <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">( )</span></li>
+              <li>Different concepts → <strong style="font-family: 'IBM Plex Mono', monospace">AND</strong> (narrower)</li>
+              <li>Phrases in <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px">" "</span></li>
+              <li><strong style="font-family: 'IBM Plex Mono', monospace">AND</strong> / <strong style="font-family: 'IBM Plex Mono', monospace">OR</strong> in caps</li>
+            </ul>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isAccess}}" hint-placeholder-val="{{ false }}">
+        <div style="background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+          <div style="font-size: 16px; font-weight: 700; color: #1B2333">What do you do?</div>
+          <sc-for list="{{choices}}" as="c" hint-placeholder-count="3">
+            <button type="button" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isDone}}" hint-placeholder-val="{{ false }}">
+        <div style="background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #0B6E69">What you did</div>
+          <div style="display: flex; flex-direction: column; gap: 6px; font-size: 15px; line-height: 1.5; color: #262626">
+            <div><strong>Built:</strong> a focused search in {{runCount}} tries</div>
+            <div><strong>Picked:</strong> on topic + Available Online</div>
+            <div><strong>Opened:</strong> View Online › Read online</div>
+            <div><strong>Signed in:</strong> with your Duke NetID</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <button type="button" onClick="{{restart}}" style="min-height: 48px; border-radius: 10px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 15px; font-weight: 600; cursor: pointer">Start over</button>
+    </div>
+  </div>
+
+  <sc-if value="{{showDone}}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 50; background: rgba(20,24,33,0.5); display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box">
+      <div role="dialog" aria-label="Lesson 4 complete" style="width: 100%; max-width: 520px; background: #FFFFFF; border-radius: 16px; border-top: 6px solid #2BA89E; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 24px 60px rgba(0,0,0,0.3)">
+        <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #0B6E69">Lesson 4 complete</div>
+        <div style="font-size: 24px; font-weight: 800; line-height: 1.25; color: #1B2333">You found an ebook and opened it through Duke.</div>
+        <div style="font-size: 15px; line-height: 1.6; color: #333333">You turned a quick search into a focused one, picked an on-topic ebook that was Available Online, and signed in with your NetID to read it.</div>
+        <div style="background: #F4F6F9; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Up next · Lesson 5</div>
+          <div style="font-size: 17px; font-weight: 700; color: #1B2333">Check &amp; next steps</div>
+          <div style="font-size: 14px; line-height: 1.55; color: #46506A">Coming soon: put all four skills to work on a new research question, and learn how to request a book, renew it, or ask a librarian.</div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px">
+          <a href="Main.dc.html" style="flex: 1 1 200px; min-height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: #012169; color: #FFFFFF; font-size: 15px; font-weight: 700; text-decoration: none">Back to the module map</a>
+          <button type="button" onClick="{{closeDone}}" style="flex: 1 1 160px; min-height: 48px; border-radius: 10px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 15px; font-weight: 600; cursor: pointer">Review this lesson</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2300}}'>
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = { step: 0, query: 'AI writing', ran: 'AI writing', history: [{ q: 'AI writing', c: '1,960' }], runs: 0, coachHidden: false, filter: 'all', picked: null, choice: null, doneDismissed: false };
+  }
+
+  analyze(q) {
+    const lower = q.toLowerCase();
+    const concepts = {
+      A: ['large language models', 'large language model', 'artificial intelligence', 'generative ai', 'chatgpt', 'chatbots', 'chatbot', 'ai'],
+      B: ['authorship', 'plagiarism', 'originality', 'creativity', 'author', 'authors'],
+      C: ['college writing', 'academic writing', 'composition', 'rhetoric', 'writing', 'write']
+    };
+    const found = {};
+    let rest = ' ' + lower.replace(/[()"]/g, ' ') + ' ';
+    Object.keys(concepts).forEach((k) => {
+      found[k] = 0;
+      concepts[k].forEach((term) => {
+        const re = new RegExp('(^|[^a-z])' + term.replace(/ /g, '\\s+') + '(?=[^a-z]|$)', 'g');
+        if (re.test(rest)) { found[k]++; rest = rest.replace(re, ' '); }
+      });
+    });
+    const nC = ['A', 'B', 'C'].filter((k) => found[k] > 0).length;
+    const orGroups = ['A', 'B', 'C'].filter((k) => found[k] > 1).length;
+    const upperOr = /\bOR\b/.test(q), upperAnd = /\bAND\b/.test(q);
+    const lowerOps = /\s(or|and)\s/.test(q);
+    const parens = /\([^()]*\bOR\b[^()]*\)/.test(q);
+    const phrases = ['generative ai', 'large language models', 'large language model', 'artificial intelligence', 'college writing', 'academic writing'];
+    const unquoted = phrases.some((ph) => new RegExp('(^|[^a-z"])' + ph.replace(/ /g, '\\s+') + '(?=[^a-z"]|$)').test(lower) && lower.indexOf('"' + ph + '"') < 0);
+    return { found, nC, orGroups, upperOr, upperAnd, lowerOps, parens, unquoted, empty: !q.trim() };
+  }
+
+  outcome(a) {
+    const P = {
+      broad: [{ t: 'Generative AI for dummies / Pam Baker.', on: true }, { t: 'Artificial Intelligence in HCI : 6th International Conference, AI-HCI 2025 … Part IV', on: true }, { t: 'Advances in Artificial Intelligence : 9th Mexican International Conference … MICAI 2010', on: true }],
+      authorship: [{ t: 'AI and authorship in scholarly communication : writing with intelligence', on: true }, { t: 'Generative AI in Creative Industries', on: true }, { t: 'Handbook of artificial intelligence for music … for creativity', on: true }],
+      narrow: [{ t: 'AI and writing / Sidney I. Dobrin.', on: false }, { t: 'AI and authorship in scholarly communication : writing with intelligence', on: true }],
+      messy: [{ t: 'Handbook of artificial intelligence for music … for creativity', on: true }, { t: 'Proceedings of the International Conference on Artificial Intelligence Applications in Business Administration in MENA Region', on: true }, { t: 'Generative AI in Creative Industries', on: true }],
+      target: [{ t: 'Generative AI in Creative Industries', on: true }, { t: 'Artificial Intelligence in HCI : 6th International Conference, AI-HCI 2025 … Part IV', on: true }, { t: 'Generative AI for dummies / Pam Baker.', on: true }]
+    };
+    if (a.empty) return { c: null, ct: '–', state: 'empty', note: '', sum: 'Type a search and press the search button.', prev: [] };
+    if (a.lowerOps && !a.upperOr && !a.upperAnd) return { c: 2, ct: '2', state: 'lower', note: 'Operators read as words.', sum: 'Two odd results. The catalog read “or” and “and” as ordinary words to match, not as instructions.', prev: [] };
+    if (a.nC === 0) return { c: 0, ct: '0', state: 'none', note: 'No concept words.', sum: 'Nothing matches. None of your search words name a concept from your question.', prev: [] };
+    if (a.nC === 1) {
+      const which = a.found.A ? ['18,400', 'Thousands of books about AI in general: business, medicine, robotics.'] : a.found.B ? ['9,800', 'Books about authorship of every kind, from Shakespeare to copyright law.'] : ['52,100', 'Every kind of writing book: grammar guides, novels, journalism.'];
+      return { c: 9999, ct: which[0], state: 'one', note: 'Far too broad.', sum: which[1], prev: a.found.A ? P.broad : [] };
+    }
+    if (a.nC === 2) {
+      if (!a.found.B) return { c: 1960, ct: '1,960', state: 'noB', note: 'Missing a concept.', sum: 'Lots of books about AI and writing in general, but most aren’t about authorship. The top results are about AI in other fields.', prev: P.broad };
+      if (!a.found.C) return { c: 640, ct: '640', state: 'noC', note: 'Missing a concept.', sum: 'Closer: AI and authorship. But many results are about art, music or publishing, not college writing.', prev: P.authorship };
+      return { c: 410, ct: '410', state: 'noA', note: 'Missing a concept.', sum: 'Books about authorship and plagiarism in writing courses, mostly from before AI tools existed.', prev: [] };
+    }
+    if (a.orGroups === 0) return { c: 9, ct: '9', state: 'narrow', note: 'Missing books that use other words.', sum: 'Only books that use your exact words for all three ideas show up. Plenty of relevant books say “composition” instead of “college writing”, or “ChatGPT” instead of “generative AI”, so they’re left out.', prev: P.narrow };
+    if (a.upperOr && !a.parens) return { c: 3120, ct: '3,120', state: 'noparens', note: 'OR words aren’t grouped.', sum: 'Your ORs aren’t grouped, so the catalog may mix them with your other words in ways you didn’t mean. The results wander off topic.', prev: P.messy };
+    if (a.orGroups < 3) {
+      const names = { A: 'generative AI', B: 'authorship', C: 'college writing' };
+      const miss = ['A', 'B', 'C'].filter((k) => a.found[k] < 2).map((k) => names[k]);
+      const missText = miss.join(' and ');
+      return { c: a.orGroups === 1 ? 24 : 41, ct: a.orGroups === 1 ? '24' : '41', state: 'partial', missText, note: 'Still missing books.',
+        sum: 'More books are coming in as you add other words. But for ' + missText + ' you’re still searching just one word, so books that describe ' + (miss.length > 1 ? 'those ideas' : 'that idea') + ' differently are left out. The number is small because you’re missing books, not because the list is focused.', prev: P.narrow };
+    }
+    if (a.unquoted) return { c: 112, ct: '112', state: 'noquotes', note: 'Phrases split apart.', sum: 'Some results match “generative” and “AI” separately, or “college” and “writing” in different places, so off-topic books slip in.', prev: P.messy };
+    const sumDone = 'Every result touches all three concepts, and your OR words catch books that describe them differently. You’ll still need to skim: a broad word like “creativity” pulls in a few off-topic books.';
+    if (!a.upperAnd) return { c: 70, ct: '70', state: 'noand', note: 'Almost there.', sum: sumDone, prev: P.target };
+    return { c: 70, ct: '70', state: 'target', note: 'Focused and complete.', sum: sumDone, prev: P.target };
+  }
+
+  renderVals() {
+    const st = this.state;
+    const a = this.analyze(st.ran);
+    const out = this.outcome(a);
+    const reached = out.state === 'target';
+
+    const checks = [
+      { t: 'Includes all three concepts: generative AI, authorship, college writing', ok: a.nC === 3 },
+      { t: 'Adds other words for every concept, joined with OR', ok: a.orGroups === 3 && a.upperOr },
+      { t: 'Groups each set of OR words in (parentheses)', ok: a.upperOr && a.parens },
+      { t: 'Joins the concept groups with AND', ok: a.upperAnd },
+      { t: 'Puts phrases in “quotes”, like "college writing"', ok: !a.unquoted && a.nC > 0 },
+      { t: 'Types AND and OR in capital letters', ok: !a.lowerOps && (a.upperOr || a.upperAnd) }
+    ].map((k) => Object.assign(k, { sr: k.ok ? 'Done: ' : 'Not yet: ',
+      dot: 'width:20px;height:20px;flex-shrink:0;margin-top:1px;border-radius:10px;display:flex;align-items:center;justify-content:center;' + (k.ok ? 'background:#0B6E69' : 'background:#FFFFFF;border:2px solid #B9C1D0;box-sizing:border-box') }));
+
+    let coach;
+    if (st.step === 0) {
+      const tips = {
+        empty: 'Type a search, then press the search button or Enter.',
+        lower: 'Search operators only work in capitals: type AND and OR, not and and or.',
+        none: 'Start from the three concepts in your question: generative AI, authorship and college writing.',
+        one: 'One concept on its own is far too broad. Add your other concepts, joined with AND.',
+        noB: '“AI writing” finds books on AI and writing, but your question is about authorship. Add that concept with AND.',
+        noC: 'You’ve got AI and authorship. Add the college writing concept with AND so the results stay on your topic.',
+        noA: 'Your question is about generative AI. Add that concept with AND.',
+        narrow: 'Right now only books that use your exact words show up. Authors don’t all use the same words, so add other words from your Lesson 1 notes, joined with OR: ("generative AI" OR ChatGPT).',
+        noparens: 'Put each set of OR words in parentheses, then join the sets with AND: (… OR …) AND (… OR …).',
+        partial: 'Good progress. Now add other words for ' + (out.missText || '') + ', joined with OR inside their own parentheses. Your Lesson 1 notes have some.',
+        noquotes: 'Put multi-word phrases in quotation marks so the catalog keeps the words together: "generative AI", "college writing".',
+        noand: 'Almost: type AND (in capitals) between your parenthesis groups. It tells the catalog every result must touch all three concepts, so the search does exactly what you mean.',
+        target: ''
+      };
+      coach = tips[out.state];
+    }
+
+    /* results page */
+    const off = 'Off topic for your question: it’s about AI, but not about writing or authorship. Skim titles for your other two concepts.';
+    const all = [
+      { title: 'Generative AI in Creative Industries / edited by Amina Al-Marzouqi, Said Salloum, Khaled Shaalan, Tarek Gaber, Ra’ed Masa’deh.', authors: 'Al-Marzouqi, Amina.; Salloum, Said.; Shaalan, Khaled.; Gaber, Tarek.; Masa’deh, Ra’ed.', pub: '2025; Cham : Springer Nature Switzerland : Imprint: Springer', online: true, fb: 'Close, but this is about AI in creative industries like art and media, not college writing.' },
+      { title: 'Artificial Intelligence in HCI : 6th International Conference, AI-HCI 2025, Held as Part of the 27th HCI International Conference, HCII 2025, Gothenburg, Sweden, June 22–27, 2025, Proceedings, Part IV / edited by Helmut Degen, Stavroula Ntoa.', authors: 'Degen, Helmut.; Ntoa, Stavroula.', pub: '2025; Cham : Springer Nature Switzerland : Imprint: Springer', online: true, fb: 'These are conference papers on human–computer interaction. ' + off },
+      { title: 'Generative AI for dummies / Pam Baker.', authors: 'Baker, Pamela, 1957- author.', pub: '2024; Hoboken, NJ : Wiley', online: true, fb: 'A handy how-to guide, but it won’t help with authorship or college writing. Look for a book that covers all three concepts.' },
+      { title: 'Rethinking writing education in the age of generative AI / edited by Chaoran Wang and Zhongfeng Tian.', authors: 'Basgier, Christopher; Wang, Chaoran, editor; Tian, Zhongfeng, editor.', pub: '2025; Taylor & Francis; Abingdon, England ; New York, New York : Routledge', online: true, ok: true },
+      { title: 'Artificial Intelligence in HCI : 6th International Conference, AI-HCI 2025, Held as Part of the 27th HCI International Conference, HCII 2025, Gothenburg, Sweden, June 22–27, 2025, Proceedings, Part II / edited by Helmut Degen, Stavroula Ntoa.', authors: 'Degen, Helmut, editor.; Ntoa, Stavroula, editor.', pub: '2025; Cham : Springer Nature Switzerland : Imprint: Springer', online: true, fb: 'Another volume of the same conference. ' + off },
+      { title: 'Advances in Artificial Intelligence : 9th Mexican International Conference on Artificial Intelligence, MICAI 2010, Pachuca, Mexico, November 8-13, 2010, Proceedings, Part I / edited by Grigori Sidorov, Arturo Hernández Aguirre, Carlos Alberto Reyes García.', authors: 'Mexican International Conference on Artificial Intelligence (9th : 2010 : Pachuca, Mexico); Sidorov, Grigori.; Hernández Aguirre, Arturo.; Reyes, Carlos A. (Carlos Alberto);', pub: '2010; Berlin, Heidelberg : Springer Berlin Heidelberg : Imprint: Springer', online: true, fb: 'Technical conference papers from 2010, before tools like ChatGPT existed. ' + off },
+      { title: 'AI and writing / Sidney I. Dobrin.', authors: 'Dobrin, Sidney I., 1967- author.', pub: '2023; Peterborough, Ontario, Canada : Broadview Press', online: false, fb: 'Right topic, but it’s a print copy marked Not Available, so you can’t read it tonight. You could request it for later. For now, find one that’s Available Online.' },
+      { title: 'Proceedings of the International Conference on Artificial Intelligence Applications in Business Administration in MENA Region (ICAIABA 2026).', authors: 'Aqli, Djouhara.', pub: '2026; Dordrecht : Atlantis Press Zeger Karssen', online: true, fb: 'About AI in business. ' + off },
+      { title: 'AI and authorship in scholarly communication : writing with intelligence / Heather Moulaison-Sandy.', authors: 'Moulaison-Sandy, Heather, author.', pub: '[2025]; Abingdon, England ; New York, New York : Routledge', online: true, fb: 'Good instinct: it’s about AI and authorship, and it’s online. But it focuses on scholarly publishing, not college writing. Worth saving for later; is there a closer match?' },
+      { title: 'Handbook of artificial intelligence for music : foundations, advanced approaches, and developments for creativity / Eduardo Reck Miranda, editor.', authors: 'Miranda, Eduardo Reck, 1963- editor.', pub: '[2021]; Cham, Switzerland : Springer', online: true, fb: 'It matched “creativity”, but it’s about music. A good reminder that a broad OR term can pull in off-topic results.' }
+    ];
+    const list = all.map((r, i) => Object.assign({ n: i + 1 }, r)).filter((r) => st.filter === 'all' || (st.filter === 'online' ? r.online : !r.online));
+    const results = list.map((r) => {
+      const on = st.picked === r.n;
+      return Object.assign({}, r, {
+        avail: r.online ? 'Available Online' : 'Not Available', notAvail: !r.online,
+        pick: () => r.ok ? this.setState({ step: 2, picked: r.n, coachHidden: false }) : this.setState({ picked: r.n, coachHidden: false }),
+        rowStyle: 'display:flex;gap:12px;padding:16px 14px;border-bottom:1px solid #DDDDDD;' + (on && !r.ok ? 'background:#FFF4EC;box-shadow:inset 4px 0 0 #C25E00' : ''),
+        pillStyle: 'display:inline-flex;align-items:center;gap:6px;width:fit-content;margin-top:4px;padding:3px 12px;border-radius:6px;font-size:12px;' + (r.online ? 'color:#012169;border:1.5px solid #012169' : 'color:#9A3A00;border:1.5px solid #E07A2E')
+      });
+    });
+    const chip = (on) => 'min-height:36px;padding:0 14px;border-radius:6px;font-size:13px;cursor:pointer;' + (on ? 'background:#012169;color:#FFFFFF;border:2px solid #012169' : 'background:#FFFFFF;color:#262626;border:1px solid #8A8F99');
+    const labels = ['Build search', 'Choose', 'Open record', 'Get access', 'Read'];
+    const steps = labels.map((l, i) => ({ label: (i + 1) + ' ' + l,
+      style: 'padding:7px 12px;border-radius:999px;font-size:13px;font-weight:700;' + (i === st.step ? 'background:#F2C14E;color:#1B2333' : (i < st.step ? 'background:#2BA89E;color:#0B1F1E' : 'background:#3A4458;color:#D5DAE3')) }));
+    const pickedR = st.picked == null ? null : all[st.picked - 1];
+    const choiceData = [
+      { label: 'Close the tab and look for a free PDF on Google instead.', ok: false, fb: 'No need. Free PDFs you find online are often incomplete or posted without permission, and Duke already pays for this one. Signing in is all it takes.' },
+      { label: 'Sign in with your Duke NetID.', ok: true },
+      { label: 'Pay to rent the ebook from the publisher.', ok: false, fb: 'Don’t pay! Duke Libraries already licenses this ebook for you. Sign in with your NetID instead.' }
+    ];
+    const choices = choiceData.map((c, i) => ({ label: c.label,
+      pick: () => c.ok ? this.setState({ step: 4, choice: i, coachHidden: false }) : this.setState({ choice: i, coachHidden: false }),
+      style: 'min-height:48px;padding:10px 14px;border-radius:10px;text-align:left;font-size:15px;cursor:pointer;color:#1B2333;' + (st.choice === i ? 'background:#FFF4EC;border:2px solid #C25E00' : 'background:#FFFFFF;border:1px solid #B9C1D0') }));
+    /* The coach only appears when something isn't working */
+    let needsCoach = false, coachTitle = '';
+    if (st.step === 0) { needsCoach = st.runs > 0 && !reached; coachTitle = 'Not quite yet'; }
+    else if (st.step === 1) { needsCoach = !!(pickedR && !pickedR.ok); coachTitle = 'Try another result'; if (needsCoach) coach = pickedR.fb; }
+    else if (st.step === 3) { const c = st.choice == null ? null : choiceData[st.choice]; needsCoach = !!(c && !c.ok); coachTitle = 'Hold on'; if (needsCoach) coach = c.fb; }
+
+    const stepNames = ['Build your search', 'Choose a result', 'Open the record', 'Get access', 'Read'];
+    const instructions = [
+      'Revise the search below and run it again. It’s ready when it covers all three concepts, includes other words for each one, and is written so the catalog reads it the way you mean. Use your notes from Lesson 1.',
+      'Find a result that’s about AI and college writing, and marked Available Online so you can read it tonight. The Available online filter can help.',
+      'This is an ebook, so there’s no call number to find. Look under View Online and select Read online.',
+      'You’re off campus, so the ebook site wants to know you’re part of Duke. Choose what to do.',
+      'You’re in. From your dorm at 10 p.m., you built a focused search, found an on-topic ebook and opened it through Duke at no cost to you.'
+    ];
+
+    const run = () => {
+      const q = st.query;
+      const o = this.outcome(this.analyze(q));
+      const h = [{ q: q.trim() || '(empty)', c: o.ct }].concat(st.history).slice(0, 6);
+      this.setState({ ran: q, history: h, runs: st.runs + 1, coachHidden: false });
+    };
+    return {
+      query: st.query, steps, results, choices, checks, history: st.history, runCount: st.history.length,
+      countText: out.ct, countNote: out.note || '',
+      countBoxStyle: 'flex:0 0 200px;display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:10px;' + (reached ? 'background:#E3F4F2;border:2px solid #0B6E69' : 'background:#F4F6F9;border:2px solid #E1E4EA'),
+      previewSummary: out.sum,
+      preview: out.prev.map((p) => ({ t: p.t, a: p.on ? 'Available Online' : 'Not Available',
+        pill: 'flex-shrink:0;font-size:12px;padding:2px 10px;border-radius:6px;height:fit-content;' + (p.on ? 'color:#012169;border:1.5px solid #012169' : 'color:#9A3A00;border:1.5px solid #E07A2E') })),
+      reached,
+      countLabel: st.filter === 'all' ? '1–10 of 70 Results' : results.length + ' shown on this page',
+      facets: ['Library', 'Resource Type', 'Subject', 'Genre', 'Language', 'Author/Creator', 'Creation Date', 'New Records'],
+      showBox: st.step <= 1,
+      isBuild: st.step === 0, isResults: st.step === 1, isRecord: st.step === 2, isAccess: st.step === 3, isDone: st.step === 4,
+      coach, coachTitle, showCoach: needsCoach && !st.coachHidden,
+      hideCoach: () => this.setState({ coachHidden: true }),
+      stepN: st.step + 1, stepName: stepNames[st.step], instruction: instructions[st.step],
+      onQuery: (e) => this.setState({ query: e.target.value }),
+      onKey: (e) => { if (e.key === 'Enter') { e.preventDefault(); if (st.step === 0) run(); else this.setState({ step: 0, picked: null }, run); } },
+      runSearch: () => { if (st.step === 0) run(); else this.setState({ step: 0, picked: null }, run); },
+      toResults: () => this.setState({ step: 1, picked: null }),
+      onlinePressed: st.filter === 'online' ? 'true' : 'false', physicalPressed: st.filter === 'physical' ? 'true' : 'false',
+      onlineStyle: chip(st.filter === 'online'), physicalStyle: chip(st.filter === 'physical'),
+      fOnline: () => this.setState({ filter: st.filter === 'online' ? 'all' : 'online' }),
+      fPhysical: () => this.setState({ filter: st.filter === 'physical' ? 'all' : 'physical' }),
+      backToResults: () => this.setState({ step: 1, picked: null }),
+      openOnline: () => this.setState({ step: 3, choice: null }),
+      restart: () => this.setState({ step: 0, query: 'AI writing', ran: 'AI writing', history: [{ q: 'AI writing', c: '1,960' }], runs: 0, coachHidden: false, filter: 'all', picked: null, choice: null, doneDismissed: false }),
+      showDone: st.step === 4 && !st.doneDismissed,
+      closeDone: () => this.setState({ doneDismissed: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

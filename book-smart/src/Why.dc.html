@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Why the catalog?</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#E9ECF1}
+a{color:#012169}a:hover{color:#00539B}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 100%; min-height: 1500px; box-sizing: border-box; background: #E9ECF1; font-family: 'Noto Sans', system-ui, sans-serif; color: #262626; padding: 24px; display: flex; flex-direction: column; gap: 20px">
+
+  <div style="max-width: 1100px; width: 100%; margin: 0 auto; box-sizing: border-box; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; background: #1B2333; color: #FFFFFF; border-radius: 12px; padding: 18px 24px">
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #F2C14E">Lesson 1 of 5</div>
+      <div style="font-size: 24px; font-weight: 800">Why use the library catalog?</div>
+      <div style="font-size: 15px; color: #D5DAE3">Google and the catalog play different parts in your research. Learn when to use each.</div>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px">
+      <div style="font-size: 14px; font-weight: 600; color: #D5DAE3">{{doneCount}} of 3 activities done</div>
+      <div style="width: 220px; height: 8px; border-radius: 4px; background: #3A4458; overflow: hidden"><div style="{{barStyle}}"></div></div>
+    </div>
+  </div>
+
+  <nav aria-label="Lesson parts" style="max-width: 1100px; width: 100%; margin: 0 auto; box-sizing: border-box">
+    <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px">
+      <sc-for list="{{parts}}" as="p" hint-placeholder-count="5">
+        <button type="button" onClick="{{p.go}}" aria-current="{{p.current}}" style="{{p.style}}">
+          <span style="{{p.numStyle}}">{{p.n}}</span>
+          <span style="font-size: 14px; font-weight: 700; line-height: 1.25; text-align: left">{{p.name}}</span>
+        </button>
+      </sc-for>
+    </div>
+  </nav>
+
+  <div style="max-width: 1100px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 20px">
+
+    <sc-if value="{{isP0}}" hint-placeholder-val="{{ true }}">
+      <section aria-labelledby="s1" style="background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 12px; padding: 32px; display: flex; flex-wrap: wrap; gap: 28px; align-items: center">
+        <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 14px">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Part 1 of 5 · Scenario</div>
+          <h2 id="s1" style="margin: 0; font-size: 26px; line-height: 1.35; color: #1B2333">Your Writing 120 instructor wants you to bring one book on your research topic to class on Friday.</h2>
+          <p style="margin: 0; font-size: 17px; line-height: 1.65; color: #333333">You’ll probably use both Google and the library catalog for this, but for different jobs. This lesson shows which tool fits each step of your research.</p>
+        </div>
+        <div style="flex: 1 1 340px; display: flex; flex-direction: column; gap: 12px; padding: 22px; border-radius: 12px; background: #F4F6F9">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Your research question</div>
+          <div style="font-size: 20px; font-weight: 700; line-height: 1.4; color: #1B2333">How is <span style="background: #FFF4D6; padding: 0 4px">generative AI</span> changing ideas of <span style="background: #FFF4D6; padding: 0 4px">authorship</span> in <span style="background: #FFF4D6; padding: 0 4px">college writing</span>?</div>
+          <div style="display: flex; gap: 16px; padding-top: 8px; border-top: 1px solid #DDE1E8">
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #1B2333"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"></path></svg>Google</div>
+            <div style="font-size: 14px; color: #5A6478">+</div>
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #1B2333"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h7a3 3 0 013 3v12a2 2 0 00-2-2H2zM22 5h-7a3 3 0 00-3 3v12a2 2 0 012-2h8z"></path></svg>Library catalog</div>
+          </div>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{isP2}}" hint-placeholder-val="{{ false }}">
+      <section aria-labelledby="s2" style="background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 12px; padding: 32px; display: flex; flex-direction: column; gap: 22px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Part 3 of 5 · Your research, step by step</div>
+          <h2 id="s2" style="margin: 0; font-size: 24px; color: #1B2333">Each step of research calls for a different tool</h2>
+          <div style="font-size: 16px; color: #46506A">Select each step on the timeline to compare what Google and the catalog do there.</div>
+        </div>
+
+        <div role="group" aria-label="Research steps" style="position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px">
+          <div aria-hidden="true" style="position: absolute; left: 10%; right: 10%; top: 27px; height: 4px; border-radius: 2px; background: #D3D7DE"></div>
+          <sc-for list="{{stages}}" as="g" hint-placeholder-count="5">
+            <button type="button" onClick="{{g.pick}}" aria-pressed="{{g.pressed}}" style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0 4px 8px; border: none; background: transparent; cursor: pointer; min-height: 44px">
+              <span style="{{g.dot}}">{{g.n}}</span>
+              <span style="{{g.labelStyle}}">{{g.name}}</span>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+          <div style="border: 1px solid #D3D7DE; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px">
+              <span style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 800; color: #1B2333"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"></path></svg>Google</span>
+              <span style="{{stage.gTagStyle}}">{{stage.gTag}}</span>
+            </div>
+            <div style="font-size: 16px; line-height: 1.6; color: #333333">{{stage.g}}</div>
+          </div>
+          <div style="border: 2px solid #012169; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px">
+              <span style="display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 800; color: #012169"><svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#012169" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h7a3 3 0 013 3v12a2 2 0 00-2-2H2zM22 5h-7a3 3 0 00-3 3v12a2 2 0 012-2h8z"></path></svg>Library catalog</span>
+              <span style="{{stage.cTagStyle}}">{{stage.cTag}}</span>
+            </div>
+            <div style="font-size: 16px; line-height: 1.6; color: #333333">{{stage.c}}</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: flex-start; font-size: 16px; line-height: 1.6; color: #1B2333; background: #F4F6F9; border-radius: 10px; padding: 16px 18px">
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#012169" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px"><path d="M9 18h6M10 22h4M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"></path></svg>
+          <span><strong>The takeaway:</strong> Use Google to learn about a topic and find words for it. Use the catalog to find sources you can read, cite and actually get.</span>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{isP1}}" hint-placeholder-val="{{ false }}">
+      <section aria-labelledby="s3" style="background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 12px; padding: 32px; display: flex; flex-direction: column; gap: 18px">
+        <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Part 2 of 5 · How they differ</div>
+        <h2 id="s3" style="margin: 0; font-size: 24px; color: #1B2333">Google and the catalog, side by side</h2>
+        <div role="table" aria-label="How Google and the library catalog differ" style="border: 1px solid #B9C1D0; border-radius: 12px; overflow: hidden">
+          <div role="row" style="display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.3fr) minmax(0, 1.3fr); background: #F4F6F9; border-bottom: 2px solid #1B2333">
+            <div role="columnheader" style="padding: 14px 18px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #46506A; display: flex; align-items: center">Compare</div>
+            <div role="columnheader" style="padding: 14px 18px; border-left: 1px solid #B9C1D0; display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 800; color: #1B2333"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"></path></svg>Google</div>
+            <div role="columnheader" style="padding: 14px 18px; border-left: 1px solid #B9C1D0; display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 800; color: #012169; background: #E8ECF6"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#012169" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5h7a3 3 0 013 3v12a2 2 0 00-2-2H2zM22 5h-7a3 3 0 00-3 3v12a2 2 0 012-2h8z"></path></svg>Library catalog</div>
+          </div>
+          <sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+            <div role="row" style="{{r.rowStyle}}">
+              <div role="rowheader" style="padding: 16px 18px; font-size: 15px; font-weight: 700; line-height: 1.4; color: #1B2333">{{r.k}}</div>
+              <div role="cell" style="padding: 16px 18px; border-left: 1px solid #D3D7DE; font-size: 16px; line-height: 1.55; color: #333333">{{r.g}}</div>
+              <div role="cell" style="padding: 16px 18px; border-left: 1px solid #D3D7DE; font-size: 16px; line-height: 1.55; color: #1B2333; background: #F5F7FC">{{r.c}}</div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{isP3}}" hint-placeholder-val="{{ false }}">
+      <section aria-labelledby="s4" style="background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 12px; padding: 32px; display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Part 4 of 5 · Quick check 1</span>
+          <span style="font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: #E8ECF6; color: #012169">Step 2 · Choose keywords</span>
+        </div>
+        <h2 id="s4" style="margin: 0; font-size: 24px; line-height: 1.4; color: #1B2333">Build a search strategy for your question</h2>
+        <div style="font-size: 16px; line-height: 1.6; color: #46506A">Google can take your whole question. The catalog does better with a strategy: the main concepts, plus other words for each one.</div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px; padding: 20px; background: #F4F6F9; border-radius: 12px">
+          <div style="display: flex; align-items: center; gap: 10px"><span style="width: 28px; height: 28px; border-radius: 14px; background: #1B2333; color: #FFFFFF; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center">1</span><span style="font-size: 17px; font-weight: 700; color: #1B2333">Select the three main concepts in your question</span></div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+            <sc-for list="{{words}}" as="w" hint-placeholder-count="9">
+              <button type="button" onClick="{{w.pick}}" aria-pressed="{{w.pressed}}" style="{{w.style}}">{{w.t}}</button>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start">
+            <button type="button" onClick="{{checkConcepts}}" style="min-height: 44px; padding: 0 20px; border-radius: 10px; border: none; background: #012169; color: #FFFFFF; font-size: 15px; font-weight: 700; cursor: pointer">Check concepts</button>
+            <sc-if value="{{conceptsChecked}}" hint-placeholder-val="{{ false }}">
+              <div role="status" style="{{conceptFbStyle}}">
+                <div style="display: flex; align-items: center; gap: 8px; font-weight: 800">
+                  <sc-if value="{{conceptsOk}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="#0B6E69"><circle cx="12" cy="12" r="11"></circle><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></sc-if>
+                  <sc-if value="{{conceptsBad}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="#B04A00"><circle cx="12" cy="12" r="11"></circle><path d="M12 7v6M12 16.5v.5" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"></path></svg></sc-if>
+                  <span>{{conceptVerdict}}</span>
+                </div>
+                <div>{{conceptFb}}</div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <sc-if value="{{showPart2}}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 16px">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <div style="display: flex; align-items: center; gap: 10px"><span style="width: 28px; height: 28px; border-radius: 14px; background: #1B2333; color: #FFFFFF; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center">2</span><span style="font-size: 17px; font-weight: 700; color: #1B2333">Sort these terms</span></div>
+              <div style="font-size: 15px; line-height: 1.6; color: #46506A">Authors don’t all use the same words. Select a term, then add it to the concept it’s another way of saying. Some terms don’t belong in this search at all. Select a placed term to send it back.</div>
+            </div>
+            <sc-if value="{{notSimple}}" hint-placeholder-val="{{ true }}">
+              <div style="display: flex; flex-wrap: wrap; gap: 8px; min-height: 52px; align-items: center; padding: 14px; border: 2px dashed #B9C1D0; border-radius: 10px">
+                <sc-for list="{{bank}}" as="b" hint-placeholder-count="12">
+                  <button type="button" onClick="{{b.pick}}" aria-pressed="{{b.pressed}}" style="{{b.style}}">{{b.t}}</button>
+                </sc-for>
+                <sc-if value="{{bankEmpty}}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size: 14px; color: #5A6478">All terms sorted. Check your strategy.</span>
+                </sc-if>
+              </div>
+            </sc-if>
+            <sc-if value="{{simple}}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; flex-direction: column; gap: 12px; padding: 18px; border-radius: 10px; background: #FFF8E6; border: 2px solid #F2C14E">
+                <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7A5300">One at a time · {{qProgress}}</div>
+                <div style="font-size: 20px; font-weight: 700; line-height: 1.4; color: #1B2333">Where does <span style="background: #FFFFFF; padding: 2px 10px; border-radius: 16px; border: 1px solid #C78A00">{{qTerm}}</span> belong?</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px">
+                  <sc-for list="{{qOpts}}" as="o" hint-placeholder-count="4">
+                    <button type="button" onClick="{{o.pick}}" style="{{o.style}}">{{o.name}}</button>
+                  </sc-for>
+                </div>
+                <sc-if value="{{hasHint}}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size: 15px; line-height: 1.55; color: #262626; background: #FFFFFF; border-radius: 8px; padding: 10px 14px"><strong>Hint:</strong> {{qHint}}</div>
+                </sc-if>
+              </div>
+            </sc-if>
+            <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+              <sc-for list="{{cols}}" as="c" hint-placeholder-count="4">
+                <div style="{{c.boxStyle}}">
+                  <div style="font-size: 15px; font-weight: 800; color: #1B2333">{{c.name}}</div>
+                  <div style="display: flex; flex-wrap: wrap; gap: 6px; min-height: 40px; align-content: flex-start">
+                    <sc-for list="{{c.items}}" as="it" hint-placeholder-count="2">
+                      <button type="button" onClick="{{it.back}}" aria-label="{{it.aria}}" style="{{it.style}}">{{it.t}}</button>
+                    </sc-for>
+                  </div>
+                  <button type="button" onClick="{{c.add}}" style="{{c.addStyle}}">{{c.addLabel}}</button>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+              <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+                <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5A6478">Your search</div>
+                <div style="display: flex; align-items: flex-start; gap: 10px; padding: 14px 16px; border: 2px solid #B9C1D0; border-radius: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 15px; line-height: 1.6; color: #1B2333; flex-grow: 1">
+                  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#012169" stroke-width="2.6" stroke-linecap="round" style="flex-shrink: 0; margin-top: 3px"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+                  <span>{{searchString}}</span>
+                </div>
+              </div>
+              <div style="flex: 1 1 360px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+                <figure style="margin: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px; border-radius: 12px; background: #F4F6F9">
+                  <svg role="img" aria-label="OR: two overlapping circles, both fully shaded. Results can match either word." width="140" height="84" viewBox="0 0 140 84">
+                    <circle cx="52" cy="42" r="34" fill="#012169" fill-opacity="0.55" stroke="#012169" stroke-width="2"></circle>
+                    <circle cx="88" cy="42" r="34" fill="#012169" fill-opacity="0.55" stroke="#012169" stroke-width="2"></circle>
+                    <text x="40" y="47" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">AI</text>
+                    <text x="100" y="47" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">ChatGPT</text>
+                  </svg>
+                  <figcaption style="font-size: 14px; line-height: 1.4; text-align: center; color: #1B2333"><strong style="font-family: 'IBM Plex Mono', monospace">OR</strong> widens: either word counts</figcaption>
+                </figure>
+                <figure style="margin: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px; border-radius: 12px; background: #F4F6F9">
+                  <svg role="img" aria-label="AND: two overlapping circles, only the overlap is shaded. Results must match both ideas." width="140" height="84" viewBox="0 0 140 84">
+                    <defs><clipPath id="andclip"><circle cx="52" cy="42" r="34"></circle></clipPath></defs>
+                    <circle cx="52" cy="42" r="34" fill="#FFFFFF" stroke="#012169" stroke-width="2"></circle>
+                    <circle cx="88" cy="42" r="34" fill="#FFFFFF" stroke="#012169" stroke-width="2"></circle>
+                    <circle cx="88" cy="42" r="34" fill="#012169" fill-opacity="0.75" clip-path="url(#andclip)"></circle>
+                    <circle cx="52" cy="42" r="34" fill="none" stroke="#012169" stroke-width="2"></circle>
+                    <text x="34" y="47" text-anchor="middle" font-size="13" font-weight="700" fill="#1B2333">AI</text>
+                    <text x="108" y="47" text-anchor="middle" font-size="12" font-weight="700" fill="#1B2333">writing</text>
+                  </svg>
+                  <figcaption style="font-size: 14px; line-height: 1.4; text-align: center; color: #1B2333"><strong style="font-family: 'IBM Plex Mono', monospace">AND</strong> narrows: both ideas needed</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div style="font-size: 14px; line-height: 1.5; color: #46506A">Quotation marks keep a phrase together, like "college writing".</div>
+
+            <sc-if value="{{notSimple}}" hint-placeholder-val="{{ true }}">
+              <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+                <button type="button" onClick="{{checkSort}}" style="min-height: 48px; padding: 0 24px; border-radius: 10px; border: none; background: #012169; color: #FFFFFF; font-size: 15px; font-weight: 700; cursor: pointer">Check my strategy</button>
+                <button type="button" onClick="{{resetSort}}" style="min-height: 48px; padding: 0 20px; border-radius: 10px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 15px; font-weight: 600; cursor: pointer">Start over</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{showSortFb}}" hint-placeholder-val="{{ false }}">
+              <div role="status" style="{{sortFbStyle}}">
+                <div style="display: flex; align-items: center; gap: 8px; font-weight: 800">
+                  <sc-if value="{{sortGood}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="#0B6E69"><circle cx="12" cy="12" r="11"></circle><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></sc-if>
+                  <sc-if value="{{sortBad}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="#B04A00"><circle cx="12" cy="12" r="11"></circle><path d="M12 7v6M12 16.5v.5" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"></path></svg></sc-if>
+                  <span>{{sortHead}}</span>
+                </div>
+                <sc-for list="{{sortNotes}}" as="n" hint-placeholder-count="1">
+                  <div>{{n}}</div>
+                </sc-for>
+                <sc-if value="{{showFix}}" hint-placeholder-val="{{ false }}">
+                  <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px">
+                    <button type="button" onClick="{{startSimple}}" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: none; background: #F2C14E; color: #1B2333; font-size: 15px; font-weight: 700; cursor: pointer">Fix them one at a time</button>
+                    <button type="button" onClick="{{tryAgain}}" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 15px; font-weight: 600; cursor: pointer">I’ll fix them myself</button>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{isP4}}" hint-placeholder-val="{{ false }}">
+      <section aria-labelledby="s5" style="background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 12px; padding: 32px; display: flex; flex-direction: column; gap: 18px">
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Part 5 of 5 · Quick check 2</span>
+          <span style="font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: #E8ECF6; color: #012169">Step 1 · Explore</span>
+          <span style="font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: #E8ECF6; color: #012169">Step 5 · Get the source</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center">
+          <div style="flex: 0 0 auto; display: flex; align-items: center; gap: 12px">
+            <div style="width: 96px; height: 132px; box-sizing: border-box; border: 1px solid #C9CDD4; background: #F7F7F5; padding: 12px 10px; display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: #333333"><strong style="font-size: 12px">Artificial Intelligence</strong><span>Elaine Rich</span><span style="margin-top: auto">1983</span></div>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #46506A">
+              <span style="display: flex; align-items: center; gap: 6px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#46506A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"></path></svg>Found on Google</span>
+              <span style="padding: 3px 8px; border-radius: 6px; border: 1px dashed #8A8F99; width: fit-content">No preview available</span>
+            </div>
+          </div>
+          <h2 id="s5" style="flex: 1 1 420px; margin: 0; font-size: 22px; line-height: 1.45; color: #1B2333">While exploring on Google, you come across <em>Artificial Intelligence</em> by Elaine Rich (1983). It sounds like a clear explanation of how AI works, useful background for your paper. But Google doesn’t have a preview or scan of it, just the cover and a short description. What’s your next move?</h2>
+        </div>
+        <div style="font-size: 16px; line-height: 1.6; color: #46506A">Google and the catalog work best together: one helps you discover a book, the other helps you get it.</div>
+        <sc-for list="{{mc}}" as="m" hint-placeholder-count="4">
+          <button type="button" onClick="{{m.pick}}" aria-pressed="{{m.pressed}}" style="{{m.style}}">{{m.label}}</button>
+        </sc-for>
+        <sc-if value="{{hasMc}}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="{{mcFbStyle}}">
+            <div style="display: flex; align-items: center; gap: 8px; font-weight: 800">
+              <sc-if value="{{mcGood}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="#0B6E69"><circle cx="12" cy="12" r="11"></circle><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></sc-if>
+              <sc-if value="{{mcBad}}" hint-placeholder-val="{{ false }}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="#B04A00"><circle cx="12" cy="12" r="11"></circle><path d="M12 7v6M12 16.5v.5" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"></path></svg></sc-if>
+              <span>{{mcVerdict}}</span>
+            </div>
+            <div>{{mcFb}}</div>
+          </div>
+        </sc-if>
+      </section>
+    </sc-if>
+
+    <div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+      <sc-if value="{{hasBack}}" hint-placeholder-val="{{ false }}">
+        <button type="button" onClick="{{back}}" style="min-height: 48px; padding: 0 20px; border-radius: 10px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 15px; font-weight: 600; cursor: pointer">← {{backLabel}}</button>
+      </sc-if>
+      <span></span>
+      <sc-if value="{{hasNext}}" hint-placeholder-val="{{ true }}">
+        <button type="button" onClick="{{forward}}" style="min-height: 48px; padding: 0 24px; border-radius: 10px; border: none; background: #012169; color: #FFFFFF; font-size: 15px; font-weight: 700; cursor: pointer">Continue: {{nextLabel}} →</button>
+      </sc-if>
+    </div>
+  </div>
+
+  <sc-if value="{{showDone}}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 50; background: rgba(20,24,33,0.5); display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box">
+      <div role="dialog" aria-label="All 3 activities done" style="width: 100%; max-width: 520px; background: #FFFFFF; border-radius: 16px; border-top: 6px solid #2BA89E; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 24px 60px rgba(0,0,0,0.3)">
+        <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #0B6E69">All 3 activities done</div>
+        <div style="font-size: 24px; font-weight: 800; line-height: 1.25; color: #1B2333">You know when to reach for Google and when to reach for the catalog.</div>
+        <div style="font-size: 15px; line-height: 1.6; color: #333333">You compared the two at each step of research, built a search strategy, and took a book you found on Google to the catalog.</div>
+        <div style="background: #F4F6F9; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Up next · Lesson 2</div>
+          <div style="font-size: 17px; font-weight: 700; color: #1B2333">Anatomy of a book record</div>
+          <div style="font-size: 14px; line-height: 1.55; color: #46506A">Open the catalog record for Elaine Rich’s <em>Artificial Intelligence</em> and learn what each part tells you, all the way to the Locate map.</div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px">
+          <a href="Record.dc.html" style="flex: 1 1 200px; min-height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: #012169; color: #FFFFFF; font-size: 15px; font-weight: 700; text-decoration: none">Continue to Lesson 2</a>
+          <button type="button" onClick="{{closeDone}}" style="flex: 1 1 160px; min-height: 48px; border-radius: 10px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 15px; font-weight: 600; cursor: pointer">Review this lesson</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { part: 0, stage: 0, seenStages: { 0: true }, picked: {}, conceptsChecked: false, sel: null, place: {}, sortChecked: false, simple: false, queue: [], qMiss: false, mc: null, doneDismissed: false }; }
+  renderVals() {
+    const st = this.state;
+    const fbBox = (good) => 'font-size:16px;line-height:1.6;padding:14px 16px;border-radius:10px;color:#262626;display:flex;flex-direction:column;gap:6px;' + (good ? 'background:#E3F4F2;border-left:0;border:1px solid #9FD3CE' : 'background:#FFF4EC;border:1px solid #F0C9A8');
+    const best = 'font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:#D7EDEB;color:#0B5A55';
+    const ok = 'font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:#EEF0F4;color:#46506A';
+
+    /* lesson parts */
+    const partNames = ['Scenario', 'How they differ', 'Research steps', 'Quick check 1', 'Quick check 2'];
+    const parts = partNames.map((name, i) => {
+      const on = st.part === i, past = i < st.part;
+      return { n: i + 1, name, current: on ? 'step' : 'false', go: () => this.setState({ part: i }),
+        style: 'display:flex;align-items:center;gap:10px;min-height:52px;padding:8px 12px;border-radius:10px;cursor:pointer;' + (on ? 'background:#FFFFFF;border:2px solid #012169;color:#012169' : (past ? 'background:#FFFFFF;border:1px solid #D3D7DE;color:#1B2333' : 'background:transparent;border:1px solid #C9CFD9;color:#46506A')),
+        numStyle: 'width:28px;height:28px;flex-shrink:0;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;' + (on ? 'background:#012169;color:#FFFFFF' : (past ? 'background:#2BA89E;color:#0B1F1E' : 'background:#E1E5EC;color:#46506A')) };
+    });
+
+    const stageData = [
+      { name: 'Explore the topic', g: 'A great place to start. Skim overviews, news and encyclopedia articles to learn what people are saying and which words they use.', gTag: 'Best here', c: 'Can feel narrow before you know your topic. It finds books and media, not quick background.', cTag: 'Later' },
+      { name: 'Choose keywords', g: 'Understands full questions, so you can skip this step. That’s handy, but you don’t learn which words matter.', gTag: 'Optional', c: 'Matches the words in titles, subjects and summaries. A strategy of concepts and synonyms beats a whole sentence.', cTag: 'Needed' },
+      { name: 'Find sources', g: 'Millions of results from the whole web. Anyone can publish, and some top results are ads.', gTag: 'Use with care', c: 'Books, ebooks and media chosen by Duke Libraries for research. Filter by format, date, subject or library.', cTag: 'Best here' },
+      { name: 'Find more like it', g: 'Suggests results based on what other people clicked.', gTag: 'Hit or miss', c: 'Subject headings link every book on the same topic. On the shelf, books on the same subject sit side by side.', cTag: 'Best here' },
+      { name: 'Get the source', g: 'Can tell you a book exists, but usually shows only a preview, a store page or a paywall. Bring the title to the catalog to get the whole thing.', gTag: 'Starting point', c: 'Shows where a book is shelved and if it’s available, or opens it online through Duke. If Duke doesn’t have it, you can request it from another library.', cTag: 'Best here' }
+    ];
+    const tagStyle = (t) => (t === 'Best here' || t === 'Needed') ? best : ok;
+    const stages = stageData.map((g, i) => {
+      const on = st.stage === i, seen = !!st.seenStages[i];
+      return { n: i + 1, name: g.name, pressed: on ? 'true' : 'false',
+        pick: () => { const s = Object.assign({}, st.seenStages); s[i] = true; this.setState({ stage: i, seenStages: s }); },
+        dot: 'position:relative;z-index:1;width:' + (on ? 56 : 48) + 'px;height:' + (on ? 56 : 48) + 'px;margin-top:' + (on ? 0 : 4) + 'px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;box-sizing:border-box;' + (on ? 'background:#012169;color:#FFFFFF;border:4px solid #C7D2EC' : (seen ? 'background:#E8ECF6;color:#012169;border:2px solid #012169' : 'background:#FFFFFF;color:#46506A;border:2px solid #B9C1D0')),
+        labelStyle: 'font-size:15px;line-height:1.3;text-align:center;' + (on ? 'font-weight:800;color:#012169' : 'font-weight:600;color:#1B2333') };
+    });
+    const cur = stageData[st.stage];
+    const stage = Object.assign({}, cur, { gTagStyle: tagStyle(cur.gTag), cTagStyle: tagStyle(cur.cTag) });
+
+    /* Quick check 1, part 1: concepts */
+    const wordData = [
+      { t: 'How', key: false }, { t: 'is', key: false }, { t: 'generative AI', key: true }, { t: 'changing', key: false },
+      { t: 'ideas of', key: false }, { t: 'authorship', key: true }, { t: 'in', key: false }, { t: 'college writing', key: true }, { t: '?', key: false }
+    ];
+    const conceptsOk = wordData.every((w, i) => !!st.picked[i] === w.key);
+    const words = wordData.map((w, i) => {
+      const on = !!st.picked[i];
+      let look = on ? 'background:#012169;color:#FFFFFF;border:2px solid #012169' : 'background:#FFFFFF;color:#1B2333;border:1px solid #8A8F99';
+      if (st.conceptsChecked && on !== w.key) look = on ? 'background:#FFF4EC;color:#7A3A00;border:2px solid #C25E00' : 'background:#FFFFFF;color:#7A3A00;border:2px dashed #C25E00';
+      return { t: w.t, pressed: on ? 'true' : 'false',
+        pick: () => { if (st.conceptsChecked && conceptsOk) return; const p = Object.assign({}, st.picked); p[i] = !p[i]; this.setState({ picked: p, conceptsChecked: false }); },
+        style: 'min-height:44px;padding:0 16px;border-radius:22px;font-size:17px;font-weight:600;cursor:pointer;' + look };
+    });
+    const nPicked = wordData.filter((w, i) => st.picked[i]).length;
+    const conceptFb = conceptsOk
+      ? 'Generative AI, authorship and college writing. Now find other words for each one.'
+      : (nPicked !== 3 ? 'Pick exactly three concepts. You have ' + nPicked + '.' : 'Look for the nouns that name your topic. Words like how, changing and ideas of connect the concepts; they aren’t concepts themselves.');
+
+    /* Quick check 1, part 2: sort terms */
+    const C = [
+      { id: 'A', name: 'Generative AI' },
+      { id: 'B', name: 'Authorship' },
+      { id: 'C', name: 'College writing' },
+      { id: 'X', name: 'Leave out' }
+    ];
+    const terms = [
+      { t: 'ChatGPT', a: 'A', hint: 'It’s a tool people use to generate text.' },
+      { t: 'robots', a: 'X', hint: 'Would most books about this be about writing at all?' },
+      { t: 'composition', a: 'C', hint: 'It’s what many colleges call their first-year writing course.' },
+      { t: 'plagiarism', a: 'B', hint: 'It’s about who wrote something and who gets the credit.' },
+      { t: 'large language models', a: 'A', hint: 'This is the technology that powers AI chatbots.' },
+      { t: 'social media', a: 'X', hint: 'Is this one of the three ideas in your question?' },
+      { t: 'academic writing', a: 'C', hint: 'It’s the kind of writing you do for your classes.' },
+      { t: 'originality', a: 'B', hint: 'Ask yourself: whose work is this, really?' },
+      { t: 'artificial intelligence', a: 'A', hint: 'It’s a broader name for the technology in your question.' },
+      { t: 'changing', a: 'X', hint: 'Is it a topic, or a word that connects the topics?' },
+      { t: 'rhetoric', a: 'C', hint: 'It’s the study of how writing persuades readers.' },
+      { t: 'creativity', a: 'B', hint: 'People ask whether a machine can be an author, and whether it can be this.' }
+    ];
+    const chip = (sel, mark) => 'min-height:40px;padding:0 14px;border-radius:20px;font-size:15px;font-weight:600;cursor:pointer;' +
+      (mark === 'good' ? 'background:#E3F4F2;color:#0B5A55;border:2px solid #0B6E69' : mark === 'bad' ? 'background:#FFF4EC;color:#7A3A00;border:2px solid #C25E00' :
+      (sel ? 'background:#F2C14E;color:#1B2333;border:2px solid #C78A00' : 'background:#FFFFFF;color:#1B2333;border:1px solid #8A8F99'));
+    const bank = terms.map((x, i) => ({ x, i })).filter((o) => !st.place[o.i]).map((o) => ({
+      t: o.x.t, pressed: st.sel === o.i ? 'true' : 'false',
+      pick: () => this.setState({ sel: st.sel === o.i ? null : o.i }),
+      style: chip(st.sel === o.i, null)
+    }));
+    const cols = C.map((c) => {
+      const items = terms.map((x, i) => ({ x, i })).filter((o) => st.place[o.i] === c.id).map((o) => {
+        const mark = st.sortChecked ? (o.x.a === c.id ? 'good' : 'bad') : null;
+        return { t: o.x.t, aria: 'Send ' + o.x.t + ' back to the term list',
+          back: () => { if (st.simple) return; const p = Object.assign({}, st.place); delete p[o.i]; this.setState({ place: p, sortChecked: false }); },
+          style: chip(false, mark).replace('min-height:40px', 'min-height:36px').replace('font-size:15px', 'font-size:14px') };
+      });
+      const can = st.sel != null;
+      return { name: c.name, items,
+        add: () => { if (st.sel == null) return; const p = Object.assign({}, st.place); p[st.sel] = c.id; this.setState({ place: p, sel: null, sortChecked: false }); },
+        addLabel: can ? 'Add “' + terms[st.sel].t + '” here' : 'Select a term first',
+        addStyle: 'margin-top:auto;min-height:44px;padding:6px 10px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;' + (can ? 'background:#012169;color:#FFFFFF;border:none' : 'background:#F4F6F9;color:#5A6478;border:1px dashed #B9C1D0'),
+        boxStyle: 'display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:10px;min-height:190px;' + (c.id === 'X' ? 'background:#F4F6F9;border:1px dashed #8A8F99' : 'background:#FFFFFF;border:2px solid #012169') };
+    });
+    const q = (t) => t.indexOf(' ') >= 0 ? '"' + t + '"' : t;
+    const group = (id, concept) => '(' + [q(concept)].concat(terms.filter((x, i) => st.place[i] === id).map((x) => q(x.t))).join(' OR ') + ')';
+    const searchString = group('A', 'generative AI') + ' AND ' + group('B', 'authorship') + ' AND ' + group('C', 'college writing');
+    const placedN = Object.keys(st.place).length;
+    const wrong = terms.map((x, i) => ({ x, i })).filter((o) => st.place[o.i] && st.place[o.i] !== o.x.a);
+    const sortGood = placedN === terms.length && wrong.length === 0;
+    let sortHead = '', sortNotes = [];
+    if (placedN < terms.length) { sortHead = 'Not finished yet'; sortNotes = ['Sort all ' + terms.length + ' terms first. ' + (terms.length - placedN) + ' left.']; }
+    else if (sortGood) { sortHead = 'Strong strategy'; sortNotes = ['Each set of parentheses catches books that use different words for the same idea, and AND makes sure every result touches all three. You’ll try it in the catalog in Lesson 4.']; }
+    else { sortHead = 'Not quite: ' + wrong.length + ' of ' + terms.length + ' in the wrong place'; sortNotes = ['The ones marked in orange need to move. The rest are right. Want a simpler way to fix them? We’ll keep your correct terms and walk through the others one at a time, with a hint.']; }
+
+    const qi = st.queue.length ? st.queue[0] : null;
+    const qx = qi == null ? null : terms[qi];
+    const qOpts = C.map((c) => ({ name: c.name,
+      pick: () => {
+        if (qi == null) return;
+        if (c.id !== qx.a) { this.setState({ qMiss: true }); return; }
+        const p = Object.assign({}, st.place); p[qi] = c.id;
+        const rest = st.queue.slice(1);
+        this.setState({ place: p, queue: rest, qMiss: false, simple: rest.length > 0, sortChecked: rest.length === 0 });
+      },
+      style: 'min-height:48px;padding:0 18px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;' + (c.id === 'X' ? 'background:#F4F6F9;color:#1B2333;border:1px dashed #8A8F99' : 'background:#FFFFFF;color:#012169;border:2px solid #012169') }));
+
+    /* Quick check 2 */
+    const mcData = [
+      { label: 'Search the catalog for the title and author to see if Duke has a copy.', ok: true, fb: 'Google helped you discover the book; the catalog tells you whether Duke has it and where. Plenty of books, especially older ones, have no online preview, but they’re sitting on a library shelf. You’ll find this exact book in Lesson 2.' },
+      { label: 'Move on. If there’s no preview, you can’t read it.', ok: false, fb: 'No preview on Google doesn’t mean no access. Many books were never scanned, but Duke may have a print copy, or can get one for you from another library. Check the catalog before you give up on it.' },
+      { label: 'Buy a used copy online.', ok: false, fb: 'You could, but check the catalog first. Duke probably has it, or can get it for you, at no cost.' },
+      { label: 'Use the Google description in your paper instead of the book.', ok: false, fb: 'The description is a short blurb, not the book, and you can’t cite it as if you read the book. If it sounds useful, get the book itself through the catalog.' }
+    ];
+    const mc = mcData.map((m, i) => ({ label: m.label, pressed: st.mc === i ? 'true' : 'false', pick: () => this.setState({ mc: i }),
+      style: 'min-height:56px;padding:14px 18px;border-radius:12px;text-align:left;font-size:16px;line-height:1.5;cursor:pointer;color:#1B2333;' + (st.mc === i ? (m.ok ? 'background:#E3F4F2;border:2px solid #0B6E69' : 'background:#FFF4EC;border:2px solid #C25E00') : 'background:#FFFFFF;border:1px solid #B9C1D0') }));
+    const mcPick = st.mc == null ? null : mcData[st.mc];
+
+    const done = (Object.keys(st.seenStages).length === 5 ? 1 : 0) + (st.sortChecked && sortGood ? 1 : 0) + (mcPick && mcPick.ok ? 1 : 0);
+    return {
+      parts, isP0: st.part === 0, isP1: st.part === 1, isP2: st.part === 2, isP3: st.part === 3, isP4: st.part === 4,
+      hasBack: st.part > 0, backLabel: st.part > 0 ? partNames[st.part - 1] : '', back: () => this.setState({ part: Math.max(0, st.part - 1) }),
+      hasNext: st.part < 4, nextLabel: st.part < 4 ? partNames[st.part + 1] : '', forward: () => this.setState({ part: Math.min(4, st.part + 1) }),
+      stages, stage,
+      rows: [
+        { k: 'What it searches', g: 'The open web: anything anyone has posted.', c: 'What Duke Libraries own or subscribe to.' },
+        { k: 'Who chose it', g: 'An algorithm ranks pages; some top results are paid ads.', c: 'Librarians select materials for research and teaching.' },
+        { k: 'How you search', g: 'Full questions work fine.', c: 'Keywords and strategies work best: concepts joined with AND and OR.' },
+        { k: 'How you narrow', g: 'A few tools: date, news, images.', c: 'Filters for format, date, subject, language and library.' },
+        { k: 'Finding more', g: 'Related results based on clicks.', c: 'Subject headings and the books shelved nearby.' },
+        { k: 'Getting it', g: 'Often a preview, store page or paywall. Duke probably has the book, or can get it.', c: 'A shelf location, online access through Duke, or a request from another library.' }
+      ].map((r, i) => Object.assign(r, { rowStyle: 'display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.3fr) minmax(0,1.3fr);' + (i ? 'border-top:1px solid #D3D7DE' : '') })),
+      words, conceptsChecked: st.conceptsChecked, conceptFb, conceptsOk, conceptsBad: !conceptsOk,
+      conceptVerdict: conceptsOk ? 'Correct' : 'Not quite',
+      conceptFbStyle: fbBox(conceptsOk) + 'flex:1 1 320px;font-size:15px;padding:10px 14px',
+      checkConcepts: () => this.setState({ conceptsChecked: true }),
+      showPart2: st.conceptsChecked && conceptsOk,
+      bank, bankEmpty: bank.length === 0, cols, searchString,
+      checkSort: () => this.setState({ sortChecked: true }),
+      resetSort: () => this.setState({ place: {}, sel: null, sortChecked: false }),
+      sortHead, sortNotes, sortFbStyle: fbBox(sortGood), sortGood, sortBad: !sortGood,
+      showSortFb: st.sortChecked && !st.simple,
+      showFix: placedN === terms.length && wrong.length > 0,
+      simple: st.simple, notSimple: !st.simple,
+      qTerm: qx ? qx.t : '', qOpts, qHint: qx ? qx.hint : '', hasHint: st.qMiss,
+      qProgress: st.queue.length + ' left',
+      startSimple: () => {
+        const p = Object.assign({}, st.place); const qq = wrong.map((o) => o.i);
+        qq.forEach((i) => { delete p[i]; });
+        this.setState({ place: p, queue: qq, simple: true, qMiss: false, sel: null, sortChecked: false });
+      },
+      tryAgain: () => this.setState({ sortChecked: false }),
+      mc, hasMc: !!mcPick, mcFb: mcPick ? mcPick.fb : '', mcFbStyle: fbBox(mcPick && mcPick.ok),
+      mcGood: !!(mcPick && mcPick.ok), mcBad: !!(mcPick && !mcPick.ok), mcVerdict: mcPick && mcPick.ok ? 'Correct' : 'Not quite',
+      doneCount: done,
+      showDone: done === 3 && !st.doneDismissed,
+      closeDone: () => this.setState({ doneDismissed: true }),
+      barStyle: 'height:100%;background:#2BA89E;width:' + Math.round(done / 3 * 100) + '%'
+    };
+  }
+}
+</script>
+</body>
+</html>

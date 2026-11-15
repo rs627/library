@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Anatomy of a book record</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#E9ECF1}
+a{color:#012169}a:hover{color:#00539B}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 100%; min-height: 980px; box-sizing: border-box; background: #E9ECF1; font-family: 'Noto Sans', system-ui, sans-serif; color: #262626; padding: 24px 24px 120px; display: flex; flex-direction: column; gap: 20px">
+
+  <div style="max-width: 1100px; width: 100%; margin: 0 auto; box-sizing: border-box; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; background: #1B2333; color: #FFFFFF; border-radius: 12px; padding: 18px 24px">
+    <div style="display: flex; flex-direction: column; gap: 4px; max-width: 700px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #F2C14E">Lesson 2 of 5</div>
+      <div style="font-size: 24px; font-weight: 800">Anatomy of a book record</div>
+      <div style="font-size: 15px; color: #D5DAE3">For your AI and writing topic, you found a classic book that explains how AI works. Select each lettered part of the record to see what it tells you. Then open <strong style="color: #FFFFFF">Locate</strong> to explore the map.</div>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px">
+      <div style="font-size: 14px; font-weight: 600; color: #D5DAE3">{{seenCount}} of {{total}} explored</div>
+      <div style="width: 220px; height: 8px; border-radius: 4px; background: #3A4458; overflow: hidden"><div style="{{barStyle}}"></div></div>
+      <div role="group" aria-label="Jump to a term" style="display: flex; gap: 6px">
+        <sc-for list="{{chips}}" as="c" hint-placeholder-count="8">
+          <button type="button" onClick="{{c.pick}}" aria-label="{{c.label}}" style="{{c.style}}">{{c.key}}</button>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width: 1100px; width: 100%; margin: 0 auto; background: #FFFFFF; border-radius: 12px; border: 1px solid #D3D7DE; position: relative">
+    <div style="background: #012169; color: #FFFFFF; padding: 12px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 20px; border-radius: 12px 12px 0 0">
+      <div style="font-size: 13px; font-weight: 800; letter-spacing: 0.06em; line-height: 1.1; text-transform: uppercase">Practice<br>Catalog</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 18px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #E6ECF7">
+        <span>New Search</span><span>Research Databases</span><span>Search Tips</span><span>My Accounts</span><span>Ask a Librarian</span>
+      </div>
+    </div>
+
+    <sc-if value="{{notMap}}" hint-placeholder-val="{{ true }}">
+    <div style="padding: 20px 32px 32px; display: flex; flex-direction: column; gap: 16px">
+      <div style="{{introStyle}}">
+        <span style="width: 32px; height: 32px; flex-shrink: 0; border-radius: 16px; background: #C8102E; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">a</span>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <div style="font-size: 16px; font-weight: 700; color: #1B2333">{{introHead}}</div>
+          <div style="font-size: 14px; line-height: 1.5; color: #46506A">Each part of the record outlined in red has a letter. Select one to see what it means, starting with <strong>a</strong>, the BOOK label just below.</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px">
+        <div style="width: 40px; height: 40px; border-radius: 20px; background: #EEF1F6; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#012169" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></div>
+        <div style="width: 16px"></div>
+        <div style="width: 36px; height: 36px; border-radius: 18px; background: #EEF1F6; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9AA5BC" stroke-width="2.4" stroke-linecap="round"><path d="M15 6l-6 6 6 6"></path></svg></div>
+        <div style="width: 36px; height: 36px; border-radius: 18px; background: #EEF1F6; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#012169" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"></path></svg></div>
+      </div>
+
+      <div style="display: flex; gap: 32px; align-items: flex-start">
+        <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0">
+
+          <div style="position: relative; display: inline-block; width: fit-content">
+            <button type="button" onClick="{{hs.a.pick}}" aria-label="a: Resource type" aria-expanded="{{hs.a.expanded}}" style="{{hs.a.style}}">
+              <span style="font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: #333333">BOOK</span>
+              <span style="{{hs.a.badge}}">a</span>
+            </button>
+            <sc-if value="{{hs.a.open}}" hint-placeholder-val="{{ false }}">
+              <div role="dialog" aria-label="{{cur.term}}" style="{{hs.a.pop}}">
+                <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; border-radius: 15px; background: #C8102E; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">{{cur.key}}</span><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Term {{curN}} of {{total}}</span><button type="button" onClick="{{closePop}}" aria-label="Close" style="margin-left: auto; width: 36px; height: 36px; border-radius: 18px; border: none; background: #EEF0F4; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+                <div style="font-size: 22px; font-weight: 800; line-height: 1.2; color: #1B2333">{{cur.term}}</div>
+                <div>{{cur.def}}</div>
+                <div style="background: #FFF4D6; border-radius: 8px; padding: 10px 12px"><div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7A5300">Why it matters</div><div style="font-size: 14px">{{cur.why}}</div></div>
+                <div style="display: flex; gap: 8px"><button type="button" onClick="{{prev}}" style="flex: 1; min-height: 44px; border-radius: 8px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 14px; font-weight: 600; cursor: pointer">Previous</button><button type="button" onClick="{{next}}" style="flex: 1; min-height: 44px; border-radius: 8px; border: none; background: #012169; color: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer">{{nextLabel}}</button></div>
+              </div>
+            </sc-if>
+          </div>
+
+          <div style="position: relative; display: inline-block; width: fit-content">
+            <button type="button" onClick="{{hs.b.pick}}" aria-label="b: Title and author" aria-expanded="{{hs.b.expanded}}" style="{{hs.b.style}}">
+              <span style="font-size: 26px; line-height: 1.25; color: #262626"><strong style="font-weight: 700">Artificial intelligence</strong> / Elaine Rich.</span>
+              <span style="{{hs.b.badge}}">b</span>
+            </button>
+            <sc-if value="{{hs.b.open}}" hint-placeholder-val="{{ false }}">
+              <div role="dialog" aria-label="{{cur.term}}" style="{{hs.b.pop}}">
+                <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; border-radius: 15px; background: #C8102E; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">{{cur.key}}</span><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Term {{curN}} of {{total}}</span><button type="button" onClick="{{closePop}}" aria-label="Close" style="margin-left: auto; width: 36px; height: 36px; border-radius: 18px; border: none; background: #EEF0F4; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+                <div style="font-size: 22px; font-weight: 800; line-height: 1.2; color: #1B2333">{{cur.term}}</div>
+                <div>{{cur.def}}</div>
+                <div style="background: #FFF4D6; border-radius: 8px; padding: 10px 12px"><div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7A5300">Why it matters</div><div style="font-size: 14px">{{cur.why}}</div></div>
+                <div style="display: flex; gap: 8px"><button type="button" onClick="{{prev}}" style="flex: 1; min-height: 44px; border-radius: 8px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 14px; font-weight: 600; cursor: pointer">Previous</button><button type="button" onClick="{{next}}" style="flex: 1; min-height: 44px; border-radius: 8px; border: none; background: #012169; color: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer">{{nextLabel}}</button></div>
+              </div>
+            </sc-if>
+          </div>
+
+          <div style="font-size: 14px; color: #333333; padding-left: 6px">Rich, Elaine.</div>
+          <div style="font-size: 14px; color: #333333; padding-left: 6px">c1983; New York : McGraw-Hill</div>
+
+          <div style="position: relative; display: inline-block; width: fit-content">
+            <button type="button" onClick="{{hs.c.pick}}" aria-label="c: Availability" aria-expanded="{{hs.c.expanded}}" style="{{hs.c.style}}">
+              <span style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border: 2px solid #A4C639; border-radius: 8px; font-size: 14px; color: #4F6B00"><span style="width: 8px; height: 8px; border-radius: 4px; background: #8DB600"></span>Available at <strong style="font-weight: 700">Perkins/Bostock Library Stacks (Q335 .R53 1983)</strong></span>
+              <span style="{{hs.c.badge}}">c</span>
+            </button>
+            <sc-if value="{{hs.c.open}}" hint-placeholder-val="{{ false }}">
+              <div role="dialog" aria-label="{{cur.term}}" style="{{hs.c.pop}}">
+                <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; border-radius: 15px; background: #C8102E; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">{{cur.key}}</span><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Term {{curN}} of {{total}}</span><button type="button" onClick="{{closePop}}" aria-label="Close" style="margin-left: auto; width: 36px; height: 36px; border-radius: 18px; border: none; background: #EEF0F4; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+                <div style="font-size: 22px; font-weight: 800; line-height: 1.2; color: #1B2333">{{cur.term}}</div>
+                <div>{{cur.def}}</div>
+                <div style="background: #FFF4D6; border-radius: 8px; padding: 10px 12px"><div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7A5300">Why it matters</div><div style="font-size: 14px">{{cur.why}}</div></div>
+                <div style="display: flex; gap: 8px"><button type="button" onClick="{{prev}}" style="flex: 1; min-height: 44px; border-radius: 8px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 14px; font-weight: 600; cursor: pointer">Previous</button><button type="button" onClick="{{next}}" style="flex: 1; min-height: 44px; border-radius: 8px; border: none; background: #012169; color: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer">{{nextLabel}}</button></div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 16px; flex-shrink: 0">
+          <div style="display: flex; gap: 16px">
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="#333333"><path d="M4 18h5l2-4V6H4v8h3zM13 18h5l2-4V6h-7v8h3z"></path></svg>
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333333" stroke-width="2"><path d="M14 4h6v16h-6M4 12h11M11 8l4 4-4 4"></path></svg>
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333333" stroke-width="2"><circle cx="18" cy="5" r="2.5"></circle><circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="19" r="2.5"></circle><path d="M8.3 10.8l7.4-4.4M8.3 13.2l7.4 4.4"></path></svg>
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333333" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4z"></path></svg>
+          </div>
+          <div style="width: 140px; height: 190px; border: 1px solid #C9CDD4; background: #F7F7F5; box-sizing: border-box; padding: 16px 12px; display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: #333333">
+            <strong>Artificial Intelligence</strong><span>Elaine Rich</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #B9A99A; margin-top: 8px; padding-top: 20px; display: flex; justify-content: space-between; align-items: center">
+        <div style="font-size: 22px; color: #262626">Locations</div>
+        <div style="width: 18px; height: 2px; background: #012169"></div>
+      </div>
+
+      <div style="background: #F0EFEE; border-radius: 4px; padding: 20px 16px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <div style="font-size: 16px; font-weight: 600; color: #012169">Perkins/Bostock Library</div>
+          <div style="position: relative; display: inline-block; width: fit-content">
+            <button type="button" onClick="{{hs.d.pick}}" aria-label="d: Location and call number" aria-expanded="{{hs.d.expanded}}" style="{{hs.d.style}}">
+              <span style="display: flex; flex-direction: column; gap: 2px; text-align: left; font-size: 16px; line-height: 1.4; color: #262626"><span>Stacks; Q335 .R53 1983</span><span>(1 copy, 1 available)</span></span>
+              <span style="{{hs.d.badge}}">d</span>
+            </button>
+            <sc-if value="{{hs.d.open}}" hint-placeholder-val="{{ false }}">
+              <div role="dialog" aria-label="{{cur.term}}" style="{{hs.d.pop}}">
+                <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; border-radius: 15px; background: #C8102E; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">{{cur.key}}</span><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Term {{curN}} of {{total}}</span><button type="button" onClick="{{closePop}}" aria-label="Close" style="margin-left: auto; width: 36px; height: 36px; border-radius: 18px; border: none; background: #EEF0F4; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+                <div style="font-size: 22px; font-weight: 800; line-height: 1.2; color: #1B2333">{{cur.term}}</div>
+                <div>{{cur.def}}</div>
+                <div style="background: #FFF4D6; border-radius: 8px; padding: 10px 12px"><div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7A5300">Why it matters</div><div style="font-size: 14px">{{cur.why}}</div></div>
+                <div style="display: flex; gap: 8px"><button type="button" onClick="{{prev}}" style="flex: 1; min-height: 44px; border-radius: 8px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 14px; font-weight: 600; cursor: pointer">Previous</button><button type="button" onClick="{{next}}" style="flex: 1; min-height: 44px; border-radius: 8px; border: none; background: #012169; color: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer">{{nextLabel}}</button></div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 20px">
+          <span style="padding: 6px 12px; border: 2px solid #A4C639; border-radius: 8px; font-size: 14px; font-weight: 600; color: #4F6B00">Available</span>
+          <div style="position: relative; display: inline-block; width: fit-content">
+            <button type="button" onClick="{{hs.e.pick}}" aria-label="e: Locate" aria-expanded="{{hs.e.expanded}}" style="{{hs.e.style}}">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="#012169"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"></path></svg>
+              <span style="font-size: 15px; color: #012169">Locate</span>
+              <span style="{{hs.e.badge}}">e</span>
+            </button>
+            <sc-if value="{{hs.e.open}}" hint-placeholder-val="{{ false }}">
+              <div role="dialog" aria-label="{{cur.term}}" style="{{hs.e.pop}}">
+                <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; border-radius: 15px; background: #C8102E; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">{{cur.key}}</span><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Term {{curN}} of {{total}}</span><button type="button" onClick="{{closePop}}" aria-label="Close" style="margin-left: auto; width: 36px; height: 36px; border-radius: 18px; border: none; background: #EEF0F4; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div>
+                <div style="font-size: 22px; font-weight: 800; line-height: 1.2; color: #1B2333">{{cur.term}}</div>
+                <div>{{cur.def}}</div>
+                <div style="background: #FFF4D6; border-radius: 8px; padding: 10px 12px"><div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7A5300">Why it matters</div><div style="font-size: 14px">{{cur.why}}</div></div>
+                <div style="display: flex; gap: 8px"><button type="button" onClick="{{prev}}" style="flex: 1; min-height: 44px; border-radius: 8px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 14px; font-weight: 600; cursor: pointer">Previous</button><button type="button" onClick="{{next}}" style="flex: 1; min-height: 44px; border-radius: 8px; border: none; background: #F2C14E; color: #1B2333; font-size: 14px; font-weight: 700; cursor: pointer">{{nextLabel}}</button></div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+      <div style="background: #012169; height: 52px; border-radius: 6px 6px 0 0; margin: -16px 16px 0"></div>
+      <div style="margin: -16px 16px 0; border: 1px solid #E1E1E1; padding: 18px 20px; font-size: 15px; color: #262626">Item in place</div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{mapOpen}}" hint-placeholder-val="{{ false }}">
+      <div style="padding: 28px 24px 32px; background: #8A8F99; border-radius: 0 0 12px 12px; display: flex; justify-content: center">
+        <div role="dialog" aria-label="Perkins/Bostock Library Stacks map" style="width: 100%; max-width: 1000px; background: #FFFFFF; border-radius: 20px; padding: 24px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 18px 50px rgba(0,0,0,0.25)">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+            <div style="font-size: 22px; color: #262626">Perkins/Bostock Library — Stacks</div>
+            <button type="button" onClick="{{closeMap}}" aria-label="Close map and go back to the record" style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 22px; border: none; background: #E8EAEE; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#012169" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 14px; padding-bottom: 12px; border-bottom: 1px solid #DDDDDD">
+            <button type="button" onClick="{{hs.f.pick}}" aria-label="f: Building" aria-pressed="{{hs.f.expanded}}" style="{{hs.f.style}}"><span><strong>Building:</strong> Bostock</span><span style="{{hs.f.badge}}">f</span></button>
+            <button type="button" onClick="{{hs.g.pick}}" aria-label="g: Area" aria-pressed="{{hs.g.expanded}}" style="{{hs.g.style}}"><span><strong>Area:</strong> Floor 4</span><span style="{{hs.g.badge}}">g</span></button>
+            <span style="color: #262626"><strong>Call Number:</strong> Q335 .R53 1983</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 18px; align-items: stretch">
+            <div style="flex: 1 1 480px; min-width: 0; overflow-x: auto">
+              <div style="border: 10px solid #3A3A3A; background: #F4F3F1; height: 380px; min-width: 460px; box-sizing: border-box; position: relative">
+                <div style="position: absolute; left: 6px; top: 6px; width: 104px; height: 84px; background: #D5EBCD; border: 3px solid #8CC67F; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 15px; font-weight: 800; color: #333333">STUDY SPACE</div>
+                <div style="position: absolute; left: 120px; right: 64px; top: 6px; height: 40px; background: #D5EBCD; border: 3px solid #8CC67F; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: #333333">STUDY SPACE</div>
+                <div style="position: absolute; right: 6px; top: 6px; width: 48px; height: 60px; background: #E9B872; border: 3px solid #8B6B5E; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #333333">STAIRS</div>
+                <div style="position: absolute; left: 6px; top: 104px; width: 104px; bottom: 66px; background: #A3A5A8"></div>
+                <div style="position: absolute; right: 6px; top: 82px; width: 66px; bottom: 116px; background: #DCDEE1; border: 1px solid #A3A5A8; display: flex; align-items: center; justify-content: center"><span style="transform: rotate(-90deg); white-space: nowrap; font-size: 12px; font-weight: 800; color: #333333">ASSIGNED CARRELS</span></div>
+                <div style="position: absolute; right: 6px; bottom: 60px; width: 52px; height: 44px; background: #D5EBCD; border: 3px solid #8CC67F; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: #333333">425</div>
+                <div style="position: absolute; left: 140px; right: 6px; bottom: 6px; height: 44px; background: #D5EBCD; border: 3px solid #8CC67F; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: #333333">STUDY SPACE</div>
+                <div style="position: absolute; left: 140px; right: 104px; top: 62px; bottom: 76px; background: #F5EA9B; border: 3px solid #D6CB78; display: flex; align-items: center; justify-content: center">
+                  <button type="button" onClick="{{hs.h.pick}}" aria-label="h: Shelf range" aria-pressed="{{hs.h.expanded}}" style="{{hs.h.style}}"><span style="font-size: 30px; font-weight: 800; line-height: 1.1; color: #333333; text-align: center">BOOKS<br>Q - QR</span><span style="{{hs.h.badge}}">h</span></button>
+                </div>
+              </div>
+            </div>
+
+            <div style="flex: 1 1 280px; min-width: 0; display: flex">
+              <sc-if value="{{mapTermOpen}}" hint-placeholder-val="{{ false }}">
+                <div aria-live="polite" style="flex-grow: 1; box-sizing: border-box; background: #FFFFFF; border-radius: 12px; border: 1px solid #D3D7DE; border-top: 5px solid #C8102E; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; font-size: 15px; line-height: 1.55; color: #262626">
+                  <div style="display: flex; align-items: center; gap: 10px"><span style="width: 30px; height: 30px; border-radius: 15px; background: #C8102E; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">{{cur.key}}</span><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Term {{curN}} of {{total}}</span></div>
+                  <div style="font-size: 22px; font-weight: 800; line-height: 1.2; color: #1B2333">{{cur.term}}</div>
+                  <div>{{cur.def}}</div>
+                  <div style="background: #FFF4D6; border-radius: 8px; padding: 10px 12px"><div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7A5300">Why it matters</div><div style="font-size: 14px">{{cur.why}}</div></div>
+                  <div style="display: flex; gap: 8px; margin-top: auto"><button type="button" onClick="{{prev}}" style="flex: 1; min-height: 44px; border-radius: 8px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 14px; font-weight: 600; cursor: pointer">Previous</button><button type="button" onClick="{{next}}" style="flex: 1; min-height: 44px; border-radius: 8px; border: none; background: #012169; color: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer">{{nextLabel}}</button></div>
+                </div>
+              </sc-if>
+              <sc-if value="{{mapIdle}}" hint-placeholder-val="{{ true }}">
+                <div style="flex-grow: 1; box-sizing: border-box; border-radius: 12px; border: 2px dashed #F2C14E; background: #FFF8E1; padding: 18px; display: flex; flex-direction: column; gap: 8px; justify-content: center">
+                  <div style="font-size: 16px; font-weight: 700; color: #1B2333">Explore the map</div>
+                  <div style="font-size: 15px; line-height: 1.55; color: #46506A">The Locate map has three more parts to learn. Select <strong>f</strong>, <strong>g</strong> and <strong>h</strong>, outlined in red, and the explanation will show up here.</div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{showDone}}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 50; background: rgba(20,24,33,0.5); display: flex; align-items: center; justify-content: center; padding: 24px; box-sizing: border-box">
+      <div role="dialog" aria-label="Lesson 2 complete" style="width: 100%; max-width: 520px; background: #FFFFFF; border-radius: 16px; border-top: 6px solid #2BA89E; padding: 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 24px 60px rgba(0,0,0,0.3)">
+        <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #0B6E69">All 8 parts explored</div>
+        <div style="font-size: 24px; font-weight: 800; line-height: 1.25; color: #1B2333">You can read a book record.</div>
+        <div style="font-size: 15px; line-height: 1.6; color: #333333">You know where to find the availability, the call number and the Locate map, so you know the book is on Bostock, Floor 4, in the Q–QR shelves.</div>
+        <div style="background: #F4F6F9; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Up next · Lesson 3</div>
+          <div style="font-size: 17px; font-weight: 700; color: #1B2333">Call numbers &amp; browsing the stacks</div>
+          <div style="font-size: 14px; line-height: 1.55; color: #46506A">Decode Q335 .R53 1983 piece by piece, then browse the books shelved around it to find more for your topic.</div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px">
+          <a href="CallNumbers.dc.html" style="flex: 1 1 200px; min-height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: #012169; color: #FFFFFF; font-size: 15px; font-weight: 700; text-decoration: none">Continue to Lesson 3</a>
+          <button type="button" onClick="{{closeDone}}" style="flex: 1 1 160px; min-height: 48px; border-radius: 10px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 15px; font-weight: 600; cursor: pointer">Review this record</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":980}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { sel: null, seen: {}, map: false, showDone: false, doneShown: false }; }
+  terms() {
+    return [
+      { key: 'a', place: 'right', term: 'Resource type', def: 'The label above the title tells you what kind of item this is: BOOK, Journal, Video, Audio and so on.', why: 'An online book is labeled BOOK too. Check the availability line (c) to see if it is on a shelf or Available Online.' },
+      { key: 'b', place: 'below', term: 'Title / author', def: 'The title comes before the slash and the author after it. Below it the author appears again, last name first, and then the date and publisher. “c1983” means copyright 1983.', why: 'Matching the exact title, author and date is how you know you found the edition you need.' },
+      { key: 'c', place: 'below', term: 'Availability', def: 'One line that sums up status, library, collection and call number: Available at Perkins/Bostock Library Stacks (Q335 .R53 1983).', why: 'Green “Available at…” means a copy should be on the shelf. “Available Online” means you read it on screen; there is nothing to walk to.' },
+      { key: 'd', place: 'above', term: 'Location & call number', def: 'Under Locations: the library (Perkins/Bostock), the collection (Stacks), the call number (Q335 .R53 1983) and how many copies are in.', why: 'The call number is the book’s address on the shelf. Write all of it down before you go.' },
+      { key: 'e', place: 'above-end', term: 'Locate', def: 'Opens a map of the floor where this call number is shelved.', why: 'It saves you guessing which building and floor to go to.' },
+      { key: 'f', term: 'Building', def: 'Perkins and Bostock are two connected buildings that share one catalog location. The map tells you which side the book is in.', why: 'The catalog says “Perkins/Bostock”, but you still have to walk into the right building.' },
+      { key: 'g', term: 'Area', def: 'The floor (or area) of the building where the shelves are.', why: 'Head for the stairs and go up to Floor 4.' },
+      { key: 'h', term: 'Shelf range', def: 'The highlighted shelves hold call numbers from Q to QR. Q335 falls in that range.', why: 'Once you’re in the range, follow the shelf-end labels to Q335, then .R53, then 1983.' }
+    ];
+  }
+  go(i, extra) {
+    const n = this.terms().length;
+    const s = Object.assign({}, this.state.seen); s[i] = true;
+    const all = Object.keys(s).length === n;
+    const next = Object.assign({ sel: i, seen: s, map: i >= 5 }, extra || {});
+    if (all && !this.state.doneShown) { next.showDone = true; next.doneShown = true; }
+    this.setState(next);
+  }
+  renderVals() {
+    const t = this.terms(), sel = this.state.sel, seen = this.state.seen, n = t.length;
+    const base = 'position:absolute;z-index:30;width:340px;max-width:80vw;box-sizing:border-box;background:#FFFFFF;border-radius:12px;border-top:5px solid #C8102E;box-shadow:0 14px 40px rgba(20,24,33,0.28),0 0 0 1px rgba(20,24,33,0.08);padding:16px 18px;display:flex;flex-direction:column;gap:10px;font-size:15px;font-weight:400;line-height:1.55;color:#262626;text-align:left;white-space:normal;letter-spacing:normal;text-transform:none;';
+    const where = {
+      'right': 'left:calc(100% + 14px);top:-8px;',
+      'below': 'left:0;top:calc(100% + 10px);',
+      'above': 'left:0;bottom:calc(100% + 10px);',
+      'above-end': 'right:0;bottom:calc(100% + 10px);'
+    };
+    const hs = {};
+    t.forEach((x, i) => {
+      const on = i === sel, done = !!seen[i];
+      hs[x.key] = {
+        pick: () => (on ? this.setState({ sel: null }) : this.go(i)),
+        open: on, expanded: on ? 'true' : 'false',
+        pop: base + (where[x.place] || ''),
+        style: 'display:inline-flex;align-items:center;gap:10px;width:fit-content;min-height:44px;padding:4px 6px;border-radius:8px;cursor:pointer;text-align:left;font-family:inherit;color:inherit;font-size:inherit;background:' + (on ? '#FFF4D6' : (done ? 'transparent' : '#FFF8E1')) + ';border:' + (on ? '3px solid #C8102E' : (done ? '2px dashed #9FD3CE' : '2px dashed #C8102E')) + ';' + (!on && !done ? 'box-shadow:0 0 0 4px rgba(200,16,46,0.12)' : ''),
+        badge: 'width:24px;height:24px;border-radius:12px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#FFFFFF;background:' + (done && !on ? '#0B6E69' : '#C8102E')
+      };
+    });
+    const chips = t.map((x, i) => ({
+      key: x.key, label: x.key + ': ' + x.term, pick: () => this.go(i),
+      style: 'width:30px;height:30px;border-radius:15px;cursor:pointer;font-size:13px;font-weight:800;' + (i === sel ? 'background:#F2C14E;color:#1B2333;border:none' : (seen[i] ? 'background:#2BA89E;color:#0B1F1E;border:none' : 'background:transparent;color:#D5DAE3;border:1px solid #5A6478'))
+    }));
+    const cur = sel == null ? t[0] : t[sel];
+    const cnt = Object.keys(seen).length;
+    const map = this.state.map;
+    return {
+      hs, chips, cur, curN: (sel == null ? 0 : sel) + 1, seenCount: cnt, total: n,
+      nextLabel: sel === 4 ? 'Open the map' : (sel === n - 1 ? 'Finish' : 'Next term'),
+      mapOpen: map, notMap: !map,
+      mapTermOpen: map && sel != null && sel >= 5, mapIdle: map && (sel == null || sel < 5),
+      introHead: cnt === 0 ? 'Start here: select the highlighted parts of this record' : (cnt === n ? 'All 8 parts explored. Nice work.' : 'Keep going: ' + (n - cnt) + ' highlighted part' + (n - cnt === 1 ? '' : 's') + ' left'),
+      introStyle: 'display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:10px;' + (cnt === n ? 'background:#E3F4F2;border:1px solid #9FD3CE' : 'background:#FFF8E1;border:2px solid #F2C14E'),
+      showDone: this.state.showDone,
+      closeDone: () => this.setState({ showDone: false }),
+      closePop: () => this.setState({ sel: null }),
+      closeMap: () => this.setState({ map: false, sel: null }),
+      barStyle: 'height:100%;background:#2BA89E;width:' + Math.round(cnt / n * 100) + '%',
+      prev: () => this.go(((sel == null ? 0 : sel) - 1 + n) % n),
+      next: () => {
+        if (sel === 4) { this.setState({ map: true, sel: null }); return; }
+        if (sel === n - 1) { this.setState({ showDone: true, doneShown: true }); return; }
+        this.go(((sel == null ? 0 : sel) + 1) % n);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
