@@ -8,6 +8,10 @@ runtime except for the Google Fonts stylesheet, which falls back to system
 fonts if it is blocked.
 
 Usage:  python3 book-smart/build.py
+
+The page fills its window and scrolls inside itself, with the lesson bar
+pinned at the top, so it works well in a fixed-height Canvas iframe
+(about 800px tall).
 """
 import base64
 import json
@@ -196,7 +200,7 @@ RUNTIME = r"""
     renderTabs();
     if (newPage) {
       document.title = PAGES[current].title + ' · Book Smart';
-      window.scrollTo(0, 0);
+      app.scrollTop = 0;
       app.focus({ preventScroll: true });
     }
   }
@@ -241,7 +245,10 @@ PAGE = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#E9ECF1;font-family:'Noto Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#262626}
+html,body{height:100%}
+body{margin:0;background:#E9ECF1;font-family:'Noto Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:#262626;display:flex;flex-direction:column;overflow:hidden}
+.bs-bar{flex:0 0 auto}
+#bs-app{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
 a{color:#012169}a:hover{color:#00539B}
 button,input,select,textarea{font-family:inherit}
 :focus-visible{outline:3px solid #00539B;outline-offset:2px}

@@ -30,6 +30,9 @@ python3 book-smart/build.py
 
 ## Notes
 
+- In Canvas, embed with an iframe about 800px tall (the module scrolls inside
+  itself with the lesson bar pinned), or add it as an External URL item that
+  opens in a new tab.
 - Progress is not saved between visits and nothing is reported to the Canvas
   gradebook (no SCORM yet).
 - The Blue Devil image is a Duke trademark; confirm usage with Duke's brand office.
