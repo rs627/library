@@ -31,6 +31,7 @@ a{color:#012169}a:hover{color:#00539B}
         <span style="padding: 6px 14px; border-radius: 999px; border: 1px solid #6F86C4; color: #FFFFFF; font-size: 14px; font-weight: 600">4 lessons</span>
         <span style="padding: 6px 14px; border-radius: 999px; border: 1px solid #6F86C4; color: #FFFFFF; font-size: 14px; font-weight: 600">About [MINUTES] minutes</span>
       </div>
+      <a href="Why.dc.html" style="align-self: flex-start; margin-top: 8px; min-height: 52px; padding: 0 28px; display: inline-flex; align-items: center; gap: 10px; border-radius: 12px; background: #F2C14E; color: #1B2333; font-size: 18px; font-weight: 800; text-decoration: none">Start Lesson 1 <span aria-hidden="true">→</span></a>
     </div>
     <img src="/_blob/b2a2aec44e62c8accce2ee4ce2459e4b" alt="Perkins Library’s stone tower and Gothic façade on a sunny day, with the spire of Duke Chapel behind it" style="flex: 1 1 360px; width: 100%; max-width: 560px; height: 320px; object-fit: cover; border-radius: 16px; box-shadow: 0 14px 34px rgba(0,0,0,0.3)">
   </div>
@@ -56,6 +57,9 @@ a{color:#012169}a:hover{color:#00539B}
           </div>
           <sc-if value="{{l.ready}}" hint-placeholder-val="{{ true }}">
             <a href="{{l.href}}" style="min-height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: #012169; color: #FFFFFF; font-size: 15px; font-weight: 700; text-decoration: none">Start lesson {{l.n}}</a>
+          </sc-if>
+          <sc-if value="{{l.locked}}" hint-placeholder-val="{{ false }}">
+            <div style="min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 10px; background: #F4F6F9; color: #46506A; font-size: 14px; font-weight: 600"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#46506A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 018 0v4"></path></svg>{{l.lockNote}}</div>
           </sc-if>
           <sc-if value="{{l.later}}" hint-placeholder-val="{{ false }}">
             <div style="min-height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px dashed #8A93A6; color: #46506A; font-size: 14px; font-weight: 600">Coming later</div>
@@ -92,7 +96,7 @@ class Component extends DCLogic {
     const lessons = data.map((l) => {
       const later = !!l.later;
       return Object.assign({}, l, {
-        ready: !later, later,
+        ready: l.n === 1, later, locked: !later && l.n > 1, lockNote: 'Opens after Lesson ' + (l.n - 1),
         tag: later ? 'Coming later' : 'Lesson ' + l.n,
         cardStyle: 'position:relative;display:flex;flex-direction:column;gap:12px;padding:20px;border-radius:14px;box-sizing:border-box;min-height:380px;' + (later ? 'background:#F4F6F9;border:2px dashed #9AA5BC' : 'background:#FFFFFF;border:1px solid #D3D7DE;box-shadow:0 4px 14px rgba(1,33,105,0.06)'),
         numStyle: 'position:relative;z-index:1;width:48px;height:48px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;' + (later ? 'background:#FFFFFF;color:#46506A;border:2px dashed #9AA5BC' : 'background:#012169;color:#FFFFFF;border:4px solid #E9ECF1'),

@@ -71,6 +71,48 @@ RUNTIME = r"""
   var tabs = document.getElementById('bs-tabs');
   var current = NAV[0][0];
   var instances = {}, templates = {};
+
+  /* Lessons open in order: the overview and Lesson 1 to start, then each
+     lesson once its "Continue" link is used. Remembered in this browser. */
+  var unlocked = {};
+  unlocked[NAV[0][0]] = true; unlocked[NAV[1][0]] = true;
+  try { JSON.parse(localStorage.getItem('bs-unlocked') || '[]').forEach(function (n) { unlocked[n] = true; }); } catch (e) {}
+  function unlock(name) {
+    unlocked[name] = true;
+    try { localStorage.setItem('bs-unlocked', JSON.stringify(Object.keys(unlocked))); } catch (e) {}
+  }
+
+  /* Embedded (Canvas iframe): ask Canvas to size the frame to the content so
+     there is no inner scrollbar. If Canvas doesn't respond, fall back to
+     scrolling inside the frame with the lesson bar pinned. */
+  var embedded = false;
+  try { embedded = window.self !== window.top; } catch (e) { embedded = true; }
+  var root = document.documentElement;
+  var lastY = 0;
+  function contentHeight() { return Math.ceil(document.body.scrollHeight); }
+  function postParent(msg) { try { window.parent.postMessage(JSON.stringify(msg), '*'); } catch (e) {} }
+  function sendHeight() { if (root.classList.contains('bs-auto')) postParent({ subject: 'lti.frameResize', height: contentHeight() }); }
+  if (embedded) {
+    root.classList.add('bs-auto');
+    document.addEventListener('pointerdown', function (e) { lastY = e.pageY; }, true);
+    if (window.ResizeObserver) new ResizeObserver(sendHeight).observe(document.body);
+    setTimeout(function () {
+      if (Math.abs(window.innerHeight - contentHeight()) > 60) {
+        root.classList.remove('bs-auto');
+        render(false);
+      }
+    }, 1800);
+  }
+  function placeOverlays() {
+    if (!root.classList.contains('bs-auto')) return;
+    app.querySelectorAll('[role=dialog]').forEach(function (d) {
+      var ov = d.parentElement;
+      if (!ov || ov.style.position !== 'fixed') return;
+      ov.style.position = 'absolute';
+      ov.style.alignItems = 'flex-start';
+      ov.style.paddingTop = Math.max(24, lastY - app.offsetTop - 240) + 'px';
+    });
+  }
   var pending = [], scheduled = false;
 
   function schedule(cb) {
@@ -197,10 +239,14 @@ RUNTIME = r"""
     var nodes = renderNodes(template(current), scope);
     if (newPage) app.textContent = '';
     patch(app, nodes);
+    placeOverlays();
     renderTabs();
+    sendHeight();
     if (newPage) {
       document.title = PAGES[current].title + ' · Book Smart';
       app.scrollTop = 0;
+      window.scrollTo(0, 0);
+      if (root.classList.contains('bs-auto')) postParent({ subject: 'lti.scrollToTop' });
       app.focus({ preventScroll: true });
     }
   }
@@ -208,15 +254,17 @@ RUNTIME = r"""
     tabs.textContent = '';
     NAV.forEach(function (p) {
       var b = document.createElement('button');
+      var open = !!unlocked[p[0]];
       b.type = 'button';
-      b.className = 'bs-tab' + (p[0] === current ? ' on' : '');
+      b.className = 'bs-tab' + (p[0] === current ? ' on' : '') + (open ? '' : ' locked');
       b.textContent = p[1];
       if (p[0] === current) b.setAttribute('aria-current', 'page');
-      b.addEventListener('click', function () { go(p[0]); });
+      if (open) b.addEventListener('click', function () { go(p[0]); });
+      else { b.disabled = true; b.title = 'Finish the previous lesson to open this one'; b.setAttribute('aria-label', p[1] + ' (locked until you finish the previous lesson)'); }
       tabs.appendChild(b);
     });
   }
-  function go(name) { if (PAGES[name]) { current = name; render(true); } }
+  function go(name) { if (PAGES[name]) { unlock(name); current = name; render(true); } }
 
   ['click', 'input', 'keydown', 'keyup', 'focusin', 'focusout'].forEach(function (type) {
     app.addEventListener(type, function (e) {
@@ -260,6 +308,10 @@ button,input,select,textarea{font-family:inherit}
 .bs-tabs{display:flex;flex-wrap:wrap;gap:6px}
 .bs-tab{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid #3A4458;background:transparent;color:#D5DAE3;font-size:14px;font-weight:600;cursor:pointer}
 .bs-tab.on{background:#F2C14E;border-color:#F2C14E;color:#1B2333}
+.bs-tab.locked{cursor:not-allowed;color:#8A93A6;border-style:dashed}
+html.bs-auto,html.bs-auto body{height:auto}
+html.bs-auto body{overflow:visible;display:block}
+html.bs-auto #bs-app{overflow:visible;position:relative}
 </style>
 </head>
 <body>
