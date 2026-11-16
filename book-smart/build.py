@@ -32,6 +32,10 @@ PAGES = [
     ("Search.dc.html", "4. Find an ebook"),
 ]
 
+# True: every lesson is open from the start (demo mode).
+# False: lessons open in order as students continue from the one before.
+UNLOCK_ALL = True
+
 # Uploaded canvas images -> local files, embedded as data URIs.
 BLOBS = {
     "6b8bda79a7ceaa4be1f36470ec8c0fdf": "blue-devil.png",
@@ -74,8 +78,9 @@ RUNTIME = r"""
 
   /* Lessons open in order: the overview and Lesson 1 to start, then each
      lesson once its "Continue" link is used. Remembered in this browser. */
+  var UNLOCK_ALL = __UNLOCK_ALL__;
   var unlocked = {};
-  unlocked[NAV[0][0]] = true; unlocked[NAV[1][0]] = true;
+  NAV.forEach(function (p, i) { if (UNLOCK_ALL || i < 2) unlocked[p[0]] = true; });
   try { JSON.parse(localStorage.getItem('bs-unlocked') || '[]').forEach(function (n) { unlocked[n] = true; }); } catch (e) {}
   function unlock(name) {
     unlocked[name] = true;
@@ -138,7 +143,7 @@ RUNTIME = r"""
   function instance(name) {
     if (!instances[name]) {
       var Comp = new Function('DCLogic', PAGES[name].code + '\nreturn Component;')(DCLogic);
-      instances[name] = new Comp({});
+      instances[name] = new Comp({ unlockAll: UNLOCK_ALL });
     }
     return instances[name];
   }
@@ -334,7 +339,8 @@ def main():
     pages = {name: parse_page(name) for name, _ in PAGES}
     pages_json = json.dumps(pages, ensure_ascii=False).replace("</", "<\\/")
     nav_json = json.dumps([[n, label] for n, label in PAGES], ensure_ascii=False)
-    runtime = RUNTIME.replace("__PAGES__", pages_json).replace("__NAV__", nav_json)
+    runtime = (RUNTIME.replace("__PAGES__", pages_json).replace("__NAV__", nav_json)
+               .replace("__UNLOCK_ALL__", "true" if UNLOCK_ALL else "false"))
     OUT.write_text(PAGE.replace("__RUNTIME__", runtime), encoding="utf-8")
     print(f"Built {OUT.relative_to(ROOT.parent)} ({OUT.stat().st_size // 1024} KB)")
 
