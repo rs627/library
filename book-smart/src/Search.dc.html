@@ -18,33 +18,49 @@ button,input,select{font-family:inherit}
 </helmet>
 <div style="width: 100%; min-height: 2300px; box-sizing: border-box; background: #E9ECF1; font-family: 'Noto Sans', system-ui, sans-serif; color: #262626; padding: 24px; display: flex; flex-direction: column; gap: 20px">
 
-  <div style="max-width: 1392px; width: 100%; margin: 0 auto; box-sizing: border-box; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; background: #1B2333; color: #FFFFFF; border-radius: 12px; padding: 18px 24px">
-    <div style="display: flex; flex-direction: column; gap: 4px; max-width: 780px">
-      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #F2C14E">Lesson 4 of 5 · Your task</div>
-      <div style="font-size: 20px; font-weight: 700; line-height: 1.35">It’s 10 p.m. and you’re in your dorm. Turn a quick search into a focused one, then find an <em>ebook</em> about AI and college writing that you can start reading tonight.</div>
+  <header style="max-width: 1392px; width: 100%; margin: 0 auto; box-sizing: border-box; background: #FFFFFF; border: 1px solid #D3D7DE; border-top: 5px solid #012169; border-radius: 12px; padding: 20px 24px; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; flex-direction: column; gap: 6px; max-width: 860px">
+      <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #012169">Lesson 4 of 5</div>
+      <h1 style="margin: 0; font-size: 28px; line-height: 1.2; font-weight: 800; color: #1B2333">Find an ebook</h1>
+      <p style="margin: 0; font-size: 16px; line-height: 1.55; color: #46506A">It’s 10 p.m. and you’re in your dorm. Turn a quick search into a focused one, then find an <em>ebook</em> about AI and college writing that you can start reading tonight.</p>
     </div>
-    <div style="display: flex; flex-wrap: wrap; gap: 6px">
+    <ol aria-label="Lesson progress" style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0">
       <sc-for list="{{steps}}" as="s" hint-placeholder-count="5">
-        <div style="{{s.style}}">{{s.label}}</div>
+        <li aria-current="{{s.current}}" style="display: flex; align-items: center">
+          <span style="{{s.line}}"></span>
+          <span style="display: flex; align-items: center; gap: 8px; padding: 0 4px">
+            <span style="{{s.dot}}">{{s.mark}}</span>
+            <span style="{{s.labelStyle}}">{{s.label}}<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">{{s.sr}}</span></span>
+          </span>
+        </li>
       </sc-for>
-    </div>
-  </div>
+    </ol>
+  </header>
 
-  <div aria-live="polite" style="max-width: 1392px; width: 100%; margin: 0 auto; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; background: #FFFFFF; border: 1px solid #D3D7DE; border-left: 6px solid #F2C14E; border-radius: 12px; padding: 14px 20px">
-    <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478; white-space: nowrap">Step {{stepN}} of 5 · {{stepName}}</span>
-    <span style="flex: 1 1 420px; font-size: 16px; line-height: 1.5; color: #1B2333">{{instruction}}</span>
-  </div>
+  <section aria-live="polite" aria-label="What to do" style="max-width: 1392px; width: 100%; margin: 0 auto; box-sizing: border-box; display: flex; gap: 16px; align-items: flex-start; background: #FFF6DC; border: 2px solid #E8B93A; border-radius: 12px; padding: 18px 22px">
+    <span aria-hidden="true" style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 22px; background: #F2C14E; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2333" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6v3H9z"></path><path d="M15 5h3v16H6V5h3"></path><path d="M9 12l2 2 4-4"></path></svg></span>
+    <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+      <div style="font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #6B4A00">What to do · Step {{stepN}} of 5: {{stepName}}</div>
+      <div style="font-size: 17px; line-height: 1.55; color: #1B2333">{{instruction}}</div>
+    </div>
+  </section>
 
   <div style="max-width: 1392px; width: 100%; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
 
-    <div style="flex: 999 1 560px; min-width: 0; background: #FFFFFF; border-radius: 12px; overflow: hidden; border: 1px solid #D3D7DE; min-height: 900px; position: relative">
-      <sc-if value="{{showCoach}}" hint-placeholder-val="{{ false }}">
-        <div role="status" aria-live="polite" aria-label="Coach" style="position: absolute; z-index: 20; top: 132px; right: 24px; width: 460px; max-width: calc(100% - 48px); box-sizing: border-box; display: flex; gap: 14px; align-items: flex-start; background: #FFFFFF; border: 2px solid #012169; border-radius: 16px; padding: 16px 18px; box-shadow: 0 18px 44px rgba(1,33,105,0.28)">
+    <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+    <div role="region" aria-label="Practice catalog" style="background: #FFFFFF; border-radius: 12px; overflow: hidden; border: 2px solid #9AA5BC; box-shadow: 0 8px 24px rgba(27,35,51,0.12); min-height: 560px; position: relative">
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #DCE0E7; border-bottom: 1px solid #C3CAD6">
+        <span aria-hidden="true" style="display: flex; gap: 6px"><span style="width: 11px; height: 11px; border-radius: 6px; background: #A9B1BF"></span><span style="width: 11px; height: 11px; border-radius: 6px; background: #A9B1BF"></span><span style="width: 11px; height: 11px; border-radius: 6px; background: #A9B1BF"></span></span>
+        <span style="flex: 1 1 auto; max-width: 560px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 5px 14px; border-radius: 6px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #46506A"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#46506A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 9h18"></path></svg>Practice catalog: a working copy for this lesson</span>
+        <span aria-hidden="true" style="width: 45px"></span>
+      </div>
+      <sc-if value="{{showCoachTop}}" hint-placeholder-val="{{ false }}">
+        <div role="status" aria-live="polite" aria-label="Coach" style="position: absolute; z-index: 20; top: 176px; right: 24px; width: 460px; max-width: calc(100% - 48px); box-sizing: border-box; display: flex; gap: 14px; align-items: flex-start; background: #FFFFFF; border: 2px solid #012169; border-radius: 16px; padding: 16px 18px; box-shadow: 0 18px 44px rgba(1,33,105,0.28)">
           <img src="/_blob/6b8bda79a7ceaa4be1f36470ec8c0fdf" alt="" style="width: 64px; height: auto; flex-shrink: 0">
           <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
             <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #012169">Coach · {{coachTitle}}</div>
             <div style="font-size: 16px; line-height: 1.6; color: #262626">{{coach}}</div>
-            <button type="button" onClick="{{hideCoach}}" style="align-self: flex-start; min-height: 40px; padding: 0 16px; border-radius: 8px; border: none; background: #012169; color: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer">Got it</button>
+            <button type="button" onClick="{{hideCoach}}" style="align-self: flex-start; min-height: 40px; padding: 0 16px; border-radius: 8px; border: 2px solid #012169; background: #FFFFFF; color: #012169; font-size: 14px; font-weight: 700; cursor: pointer">Got it</button>
           </div>
         </div>
       </sc-if>
@@ -90,12 +106,6 @@ button,input,select{font-family:inherit}
             </div>
           </div>
 
-          <sc-if value="{{reached}}" hint-placeholder-val="{{ false }}">
-            <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; padding: 14px 16px; border-radius: 10px; background: #E3F4F2; border: 1px solid #9FD3CE">
-              <div style="font-size: 15px; line-height: 1.5; color: #0B3D3A; flex: 1 1 360px"><strong>That’s a strong search.</strong> It covers all three concepts, catches books that use different words, and reads the way you mean it. The 70 results aren’t a magic number; they’re what a complete strategy finds. Time to skim them.</div>
-              <button type="button" onClick="{{toResults}}" style="min-height: 48px; padding: 0 22px; border-radius: 10px; border: none; background: #012169; color: #FFFFFF; font-size: 15px; font-weight: 700; cursor: pointer">See all 70 results</button>
-            </div>
-          </sc-if>
 
           <div style="display: flex; flex-direction: column; gap: 8px">
             <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Your searches</div>
@@ -176,7 +186,7 @@ button,input,select{font-family:inherit}
       </sc-if>
 
       <sc-if value="{{isAccess}}" hint-placeholder-val="{{ false }}">
-        <div style="padding: 48px 32px; display: flex; justify-content: center; background: #F4F6F9; min-height: 520px; box-sizing: border-box">
+        <div style="padding: 40px 32px; display: flex; justify-content: center; background: #F4F6F9; min-height: 320px; box-sizing: border-box">
           <div style="width: 100%; max-width: 560px; background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px; align-self: flex-start">
             <div style="width: 48px; height: 48px; border-radius: 24px; background: #E8ECF6; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#012169" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 018 0v4"></path></svg></div>
             <div style="font-size: 20px; font-weight: 700; color: #1B2333">You’re off campus, so the ebook site asks you to sign in before it opens.</div>
@@ -202,10 +212,54 @@ button,input,select{font-family:inherit}
       </sc-if>
     </div>
 
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <sc-if value="{{nextReady}}" hint-placeholder-val="{{ false }}">
+        <div role="status" style="display: flex; gap: 10px; align-items: flex-start; padding: 14px 16px; border-radius: 10px; background: #E3F4F2; border: 1px solid #9FD3CE; font-size: 16px; line-height: 1.6; color: #0B3D3A">
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="#0B6E69" style="flex-shrink: 0; margin-top: 2px"><circle cx="12" cy="12" r="11"></circle><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <div><strong>That’s a strong search.</strong> It covers all three concepts, catches books that use different words, and reads the way you mean it. The 70 results aren’t a magic number; they’re what a complete strategy finds.</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isAccess}}" hint-placeholder-val="{{ false }}">
+        <fieldset style="margin: 0; border: 1px solid #D3D7DE; border-radius: 12px; background: #FFFFFF; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+          <legend style="padding: 0 6px; font-size: 17px; font-weight: 800; color: #1B2333">What do you do? Choose one.</legend>
+          <sc-for list="{{choices}}" as="c" hint-placeholder-count="3">
+            <button type="button" role="radio" aria-checked="{{c.checked}}" onClick="{{c.pick}}" style="{{c.style}}">
+              <span style="{{c.dot}}"><span style="{{c.inner}}"></span></span>
+              <span>{{c.label}}</span>
+            </button>
+          </sc-for>
+          <sc-if value="{{showCoachInline}}" hint-placeholder-val="{{ false }}">
+            <div role="status" aria-label="Coach" style="display: flex; gap: 14px; align-items: flex-start; margin-top: 6px; background: #FFFFFF; border: 2px solid #012169; border-radius: 14px; padding: 14px 16px">
+              <img src="/_blob/6b8bda79a7ceaa4be1f36470ec8c0fdf" alt="" style="width: 56px; height: auto; flex-shrink: 0">
+              <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+                <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #012169">Coach · {{coachTitle}}</div>
+                <div style="font-size: 16px; line-height: 1.6; color: #262626">{{coach}}</div>
+              </div>
+            </div>
+          </sc-if>
+        </fieldset>
+      </sc-if>
+
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 4px">
+        <button type="button" onClick="{{restart}}" style="min-height: 48px; padding: 0 20px; border-radius: 10px; border: 2px solid #012169; background: #FFFFFF; color: #012169; font-size: 15px; font-weight: 700; cursor: pointer">Start over</button>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; justify-content: flex-end">
+          <span style="font-size: 14px; color: #46506A">{{nextHint}}</span>
+          <sc-if value="{{nextReady}}" hint-placeholder-val="{{ false }}">
+            <button type="button" onClick="{{toResults}}" style="min-height: 52px; padding: 0 26px; border-radius: 10px; border: none; background: #012169; color: #FFFFFF; font-size: 16px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 10px">Continue: see all 70 results <span aria-hidden="true">→</span></button>
+          </sc-if>
+          <sc-if value="{{nextWaiting}}" hint-placeholder-val="{{ true }}">
+            <span aria-disabled="true" style="min-height: 52px; padding: 0 26px; border-radius: 10px; background: #E1E5EC; color: #5A6478; font-size: 16px; font-weight: 700; display: inline-flex; align-items: center; gap: 10px">{{nextLabel}} <span aria-hidden="true">→</span></span>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+    </div>
+
     <div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
       <sc-if value="{{isBuild}}" hint-placeholder-val="{{ true }}">
-        <div style="background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
-          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5A6478">Your notes from Lesson 1</div>
+        <aside aria-label="Your notes from Lesson 1" style="background: #F7F8FA; border: 1px solid #D3D7DE; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #46506A"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#46506A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h11a2 2 0 012 2v16H8a2 2 0 01-2-2z"></path><path d="M6 17a2 2 0 012-2h11"></path></svg>Your notes from Lesson 1 · for reference</div>
           <div style="display: flex; flex-direction: column; gap: 8px">
             <div style="font-size: 15px; font-weight: 700; color: #1B2333">Concepts and other words</div>
             <div style="font-size: 14px; line-height: 1.55; color: #262626; padding: 8px 10px; border-radius: 8px; background: #F4F6F9"><strong>Generative AI:</strong> ChatGPT, large language models, artificial intelligence</div>
@@ -223,17 +277,9 @@ button,input,select{font-family:inherit}
               <li><strong style="font-family: 'IBM Plex Mono', monospace">AND</strong> / <strong style="font-family: 'IBM Plex Mono', monospace">OR</strong> in caps</li>
             </ul>
           </div>
-        </div>
+        </aside>
       </sc-if>
 
-      <sc-if value="{{isAccess}}" hint-placeholder-val="{{ false }}">
-        <div style="background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
-          <div style="font-size: 16px; font-weight: 700; color: #1B2333">What do you do?</div>
-          <sc-for list="{{choices}}" as="c" hint-placeholder-count="3">
-            <button type="button" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
-          </sc-for>
-        </div>
-      </sc-if>
 
       <sc-if value="{{isDone}}" hint-placeholder-val="{{ false }}">
         <div style="background: #FFFFFF; border: 1px solid #D3D7DE; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
@@ -247,7 +293,6 @@ button,input,select{font-family:inherit}
         </div>
       </sc-if>
 
-      <button type="button" onClick="{{restart}}" style="min-height: 48px; border-radius: 10px; border: 1px solid #B9C1D0; background: #FFFFFF; color: #1B2333; font-size: 15px; font-weight: 600; cursor: pointer">Start over</button>
     </div>
   </div>
 
@@ -401,17 +446,28 @@ class Component extends DCLogic {
     });
     const chip = (on) => 'min-height:36px;padding:0 14px;border-radius:6px;font-size:13px;cursor:pointer;' + (on ? 'background:#012169;color:#FFFFFF;border:2px solid #012169' : 'background:#FFFFFF;color:#262626;border:1px solid #8A8F99');
     const labels = ['Build search', 'Choose', 'Open record', 'Get access', 'Read'];
-    const steps = labels.map((l, i) => ({ label: (i + 1) + ' ' + l,
-      style: 'padding:7px 12px;border-radius:999px;font-size:13px;font-weight:700;' + (i === st.step ? 'background:#F2C14E;color:#1B2333' : (i < st.step ? 'background:#2BA89E;color:#0B1F1E' : 'background:#3A4458;color:#D5DAE3')) }));
+    const steps = labels.map((l, i) => {
+      const done = i < st.step, cur = i === st.step;
+      return { label: l, mark: done ? '✓' : String(i + 1), current: cur ? 'step' : 'false',
+        sr: done ? ' (done)' : (cur ? ' (current step)' : ''),
+        line: i === 0 ? 'display:none' : 'display:block;width:28px;height:3px;border-radius:2px;margin:0 4px;background:' + (i <= st.step ? '#0B6E69' : '#D3D7DE'),
+        dot: 'width:28px;height:28px;flex-shrink:0;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;box-sizing:border-box;' + (done ? 'background:#0B6E69;color:#FFFFFF' : (cur ? 'background:#012169;color:#FFFFFF' : 'background:#FFFFFF;color:#5A6478;border:2px solid #B9C1D0')),
+        labelStyle: 'font-size:14px;' + (cur ? 'font-weight:800;color:#012169' : (done ? 'font-weight:600;color:#0B5A55' : 'font-weight:600;color:#5A6478')) };
+    });
     const pickedR = st.picked == null ? null : all[st.picked - 1];
     const choiceData = [
       { label: 'Close the tab and look for a free PDF on Google instead.', ok: false, fb: 'No need. Free PDFs you find online are often incomplete or posted without permission, and Duke already pays for this one. Signing in is all it takes.' },
       { label: 'Sign in with your Duke NetID.', ok: true },
       { label: 'Pay to rent the ebook from the publisher.', ok: false, fb: 'Don’t pay! Duke Libraries already licenses this ebook for you. Sign in with your NetID instead.' }
     ];
-    const choices = choiceData.map((c, i) => ({ label: c.label,
-      pick: () => c.ok ? this.setState({ step: 4, choice: i, coachHidden: false }) : this.setState({ choice: i, coachHidden: false }),
-      style: 'min-height:48px;padding:10px 14px;border-radius:10px;text-align:left;font-size:15px;cursor:pointer;color:#1B2333;' + (st.choice === i ? 'background:#FFF4EC;border:2px solid #C25E00' : 'background:#FFFFFF;border:1px solid #B9C1D0') }));
+    const choices = choiceData.map((c, i) => {
+      const on = st.choice === i;
+      return { label: c.label, checked: on ? 'true' : 'false',
+        pick: () => c.ok ? this.setState({ step: 4, choice: i, coachHidden: false }) : this.setState({ choice: i, coachHidden: false }),
+        style: 'display:flex;align-items:center;gap:14px;width:100%;min-height:56px;padding:12px 16px;border-radius:10px;text-align:left;font-size:16px;line-height:1.45;cursor:pointer;color:#1B2333;' + (on ? 'background:#FFF4EC;border:2px solid #C25E00' : 'background:#FFFFFF;border:1px solid #B9C1D0'),
+        dot: 'width:22px;height:22px;flex-shrink:0;border-radius:11px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;border:2px solid ' + (on ? '#C25E00' : '#5A6478'),
+        inner: on ? 'width:10px;height:10px;border-radius:5px;background:#C25E00' : 'display:none' };
+    });
     /* The coach only appears when something isn't working */
     let needsCoach = false, coachTitle = '';
     if (st.step === 0) { needsCoach = st.runs > 0 && !reached; coachTitle = 'Not quite yet'; }
@@ -441,11 +497,14 @@ class Component extends DCLogic {
       preview: out.prev.map((p) => ({ t: p.t, a: p.on ? 'Available Online' : 'Not Available',
         pill: 'flex-shrink:0;font-size:12px;padding:2px 10px;border-radius:6px;height:fit-content;' + (p.on ? 'color:#012169;border:1.5px solid #012169' : 'color:#9A3A00;border:1.5px solid #E07A2E') })),
       reached,
+      nextReady: st.step === 0 && reached, nextWaiting: st.step === 0 && !reached,
+      nextLabel: 'Continue',
+      nextHint: st.step === 0 ? (reached ? '' : 'Finish building your search to continue.') : (st.step === 1 ? 'Choose a result in the practice catalog.' : (st.step === 2 ? 'Select Read online in the practice catalog.' : (st.step === 3 ? 'Choose an answer above.' : ''))),
       countLabel: st.filter === 'all' ? '1–10 of 70 Results' : results.length + ' shown on this page',
       facets: ['Library', 'Resource Type', 'Subject', 'Genre', 'Language', 'Author/Creator', 'Creation Date', 'New Records'],
       showBox: st.step <= 1,
       isBuild: st.step === 0, isResults: st.step === 1, isRecord: st.step === 2, isAccess: st.step === 3, isDone: st.step === 4,
-      coach, coachTitle, showCoach: needsCoach && !st.coachHidden,
+      coach, coachTitle, showCoachTop: needsCoach && !st.coachHidden && st.step !== 3, showCoachInline: needsCoach && st.step === 3,
       hideCoach: () => this.setState({ coachHidden: true }),
       stepN: st.step + 1, stepName: stepNames[st.step], instruction: instructions[st.step],
       onQuery: (e) => this.setState({ query: e.target.value }),
