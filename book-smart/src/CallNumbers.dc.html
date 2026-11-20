@@ -101,8 +101,8 @@ button{font-family:inherit}
           </div>
 
           <div style="display: flex; flex-direction: column; background: #F4F6F9; border-radius: 12px; padding: 4px 14px 12px">
-            <div role="group" aria-label="Shelf Q334 to Q336" style="display: flex; gap: 8px; align-items: flex-end; padding: 18px 0 0; overflow-x: auto">
-              <sc-for list="{{shelf}}" as="b" hint-placeholder-count="7">
+            <div role="group" aria-label="Shelf Q335 .R434 to Q335 .R93" style="display: flex; gap: 8px; align-items: flex-end; padding: 18px 0 0; overflow-x: auto">
+              <sc-for list="{{shelf}}" as="b" hint-placeholder-count="10">
                 <button type="button" onClick="{{b.pick}}" aria-pressed="{{b.pressed}}" aria-label="{{b.aria}}" style="{{b.spine}}">
                   <span style="writing-mode: vertical-rl; transform: rotate(180deg); font-size: 13px; font-weight: 700; line-height: 1.2; color: #FFFFFF; flex-grow: 1; overflow: hidden; text-align: left">{{b.title}}</span>
                   <span style="background: #FFFFFF; border-radius: 3px; padding: 6px 2px; display: flex; flex-direction: column; align-items: center; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; color: #1B2333">
@@ -115,7 +115,7 @@ button{font-family:inherit}
               </sc-for>
             </div>
             <div style="height: 14px; background: #7A5B3A; border-radius: 3px"></div>
-            <div style="display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5A6478; padding: 6px 4px 0"><span>← Q334</span><span>Q336 →</span></div>
+            <div style="display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5A6478; padding: 6px 4px 0"><span>← Q335 .R4</span><span>Q335 .R9 →</span></div>
           </div>
 
           <div aria-live="polite" style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; border: 1px solid #D3D7DE; border-radius: 12px; padding: 20px">
@@ -264,7 +264,7 @@ button{font-family:inherit}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
 class Component extends DCLogic {
-  constructor(p) { super(p); this.state = { part: 0, seg: 0, order: null, sel: 2, list: {}, listChecked: false, hood: null, doneDismissed: false }; }
+  constructor(p) { super(p); this.state = { part: 0, seg: 0, order: null, sel: 3, list: {}, listChecked: false, hood: null, doneDismissed: false }; }
   renderVals() {
     const st = this.state;
     const pick = (on, good) => 'min-height:52px;padding:12px 18px;border-radius:12px;text-align:left;font-size:16px;line-height:1.4;cursor:pointer;color:#1B2333;' + (on ? (good ? 'background:#E3F4F2;border:2px solid #0B6E69' : 'background:#FFF4EC;border:2px solid #C25E00') : 'background:#FFFFFF;border:1px solid #B9C1D0');
@@ -281,7 +281,7 @@ class Component extends DCLogic {
     const segData = [
       { text: 'Q', name: 'Class letters', def: 'One to three letters for the broad subject. Q is Science. Books on the same subject sit together on the shelf.' },
       { text: '335', name: 'Class number', def: 'Narrows the subject. Q335 is where general books on artificial intelligence go. Read it as a whole number: 335 comes after 300.' },
-      { text: '.R53', name: 'Cutter number', def: 'Usually stands for the author or title (R for Rich). Read it as a decimal: .R53 comes before .R6, because .53 is less than .6.' },
+      { text: '.R53', name: 'Cutter number', def: 'Usually stands for the author or title (R for Rich). Read it as a decimal: .R53 comes after .R453, because .53 is more than .453.' },
       { text: '1983', name: 'Year', def: 'The year the edition was published. It tells apart editions of the same book, oldest first.' }
     ];
     const segs = segData.map((g, i) => ({ text: g.text, pressed: st.seg === i ? 'true' : 'false', pick: () => this.setState({ seg: i }),
@@ -289,28 +289,31 @@ class Component extends DCLogic {
       labelStyle: "font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:600;padding:1px 6px;border-radius:3px;" + (st.seg === i ? 'background:#F2C14E;color:#1B2333' : 'color:#1B2333') }));
 
     const orderData = [
-      { label: 'Q300 .K5 1975', ok: false, fb: '300 is less than 335, so this book comes before Rich’s, not after.' },
-      { label: 'Q335 .S5 2023', ok: true, fb: 'Same Q335, and .S5 comes after .R53 because S comes after R. You’ll meet this book on the shelf in Part 2.' },
+      { label: 'Q335 .R453 2018', ok: false, fb: 'Read the cutter as a decimal: .453 is less than .53, so this book comes before Rich’s, not after. You’ll meet it on the shelf in Part 2.' },
+      { label: 'Q335 .R58 1984', ok: true, fb: 'Same Q335 and R, and .58 comes after .53. You’ll meet this book on the shelf in Part 2.' },
       { label: 'QA76 .M3 2010', ok: false, fb: 'Letters come first: every Q book is shelved before any QA book, so this one is further along.' }
     ];
     const order = orderData.map((o, i) => ({ label: o.label, pressed: st.order === i ? 'true' : 'false', pick: () => this.setState({ order: i }), style: "font-family:'IBM Plex Mono',monospace;" + pick(st.order === i, o.ok) }));
     const oPick = st.order == null ? null : orderData[st.order];
 
     const books = [
-      { parts: ['Q', '334', '.C6', '2019'], title: 'Computing Machinery and Minds', by: '[Author] · 2019', about: 'A short history of AI from the 1950s on. Helpful background, but it barely mentions writing.', color: '#3D5A80', score: 'maybe' },
-      { parts: ['Q', '335', '.B6', '2020'], title: 'Machines That Read', by: '[Author] · 2020', about: 'How computers learned to process and produce human language, and what that means for readers and writers.', color: '#2F6F5E', score: 'yes' },
+      { parts: ['Q', '335', '.R434', '1990'], title: 'Readings in Uncertain Reasoning', by: 'Glenn Shafer & Judea Pearl, eds. · 1990', about: 'A collection of research articles on how AI systems reason with uncertain information, such as probabilistic expert systems. Technical and written for specialists.', color: '#3D5A80', score: 'no' },
+      { parts: ['Q', '335', '.R45', '1991'], title: 'Reasoning about Plans', by: 'James F. Allen et al. · 1991', about: 'Four linked studies of how AI systems plan actions over time and recognize other agents’ plans, built on a formal logic of time. Mostly logic and proofs.', color: '#4A5568', score: 'no' },
+      { parts: ['Q', '335', '.R453', '2018'], title: 'The Fourth Age', by: 'Byron Reese · 2018', about: 'How AI and robots could change jobs, creativity and what it means to be human, including whether computers can be creative or conscious. Written for general readers.', color: '#2F6F5E', score: 'yes' },
       { parts: ['Q', '335', '.R53', '1983'], title: 'Artificial Intelligence', by: 'Elaine Rich · 1983', about: 'The textbook you came to find. It explains how AI systems work.', color: '#8A5A1E', score: 'anchor' },
-      { parts: ['Q', '335', '.S5', '2023'], title: 'Ghostwriters: Generative AI and Authorship', by: '[Author] · 2023', about: 'Who counts as the author when a chatbot helps write the text? Case studies from classrooms and publishing.', color: '#6B3E75', score: 'yes' },
-      { parts: ['Q', '335', '.T4', '1990'], title: 'Reasoning Systems in Practice', by: '[Author] · 1990', about: 'A technical manual on rule-based reasoning systems. Mostly equations and code.', color: '#7A4E2D', score: 'no' },
-      { parts: ['Q', '335.5', '.B4', '2001'], title: 'Building Expert Systems', by: '[Author] · 2001', about: 'How to design expert systems for medicine and engineering. Not about language or writing.', color: '#4A5568', score: 'no' },
-      { parts: ['Q', '336', '.M4', '2022'], title: 'Robots, Ethics, and Society', by: '[Author] · 2022', about: 'Ethical questions about AI in daily life. One chapter on AI-written news.', color: '#2C6E8F', score: 'maybe' }
+      { parts: ['Q', '335', '.R58', '1984'], title: 'The Binary Brain: Artificial Intelligence in the Age of Electronics', spine: 'The Binary Brain', by: 'David Ritchie · 1984', about: 'A science writer’s tour of early-1980s AI research, with lab visits and interviews. Interesting history, but written long before the AI tools you write with today.', color: '#2C6E8F', score: 'maybe' },
+      { parts: ['Q', '335', '.R62', '1996'], title: 'The Robot’s Dilemma, Revisited', by: 'Kenneth M. Ford & Zenon W. Pylyshyn, eds. · 1996', about: 'A follow-up collection on the frame problem: how an AI can tell what changes and what stays the same after an action. Philosophy and logic.', color: '#7A4E2D', score: 'no' },
+      { parts: ['Q', '335', '.R63', '1987'], title: 'The Robot’s Dilemma: The Frame Problem in Artificial Intelligence', spine: 'The Robot’s Dilemma', by: 'Zenon W. Pylyshyn, ed. · 1987', about: 'Essays by philosophers and computer scientists, including Daniel Dennett and Jerry Fodor, on the frame problem. Important in AI history, but far from writing.', color: '#5B4B8A', score: 'no' },
+      { parts: ['Q', '335', '.R855', '2024'], title: 'The Mind’s Mirror', by: 'Daniela Rus & Gregory Mone · 2024', about: 'An MIT roboticist and a science writer explain how AI works, how it can make people more productive and creative, and what we need to do to limit its risks.', color: '#6B3E75', score: 'yes' },
+      { parts: ['Q', '335', '.R86', '1995'], title: 'Artificial Intelligence: A Modern Approach', by: 'Stuart Russell & Peter Norvig · 1995', about: 'The first edition of the most widely used AI textbook. It explains how AI systems are built, not how they affect writing.', color: '#3F6B3A', score: 'no' },
+      { parts: ['Q', '335', '.R93', '1990'], title: 'Artificial Intelligence and Human Reason', by: 'Joseph F. Rychlak · 1990', about: 'A psychologist argues that human reasoning is driven by purpose and meaning in a way computer processing is not. Useful for big questions, but not about writing.', color: '#8C3B3B', score: 'maybe' }
     ];
     const shelf = books.map((b, i) => {
       const on = st.sel === i;
       const listed = !!st.list[i];
       let ring = on ? '4px solid #F2C14E' : '2px solid rgba(0,0,0,0.15)';
       if (st.listChecked && listed) ring = b.score === 'yes' ? '4px solid #2BA89E' : '4px solid #E07A2E';
-      return { parts: b.parts, title: b.title, listed, pressed: on ? 'true' : 'false', aria: 'Pull ' + b.parts.join(' ') + ', ' + b.title + (listed ? ' (on your list)' : ''),
+      return { parts: b.parts, title: (b.spine || b.title).replace(/’/g, "'"), listed, pressed: on ? 'true' : 'false', aria: 'Pull ' + b.parts.join(' ') + ', ' + b.title + (listed ? ' (on your list)' : ''),
         pick: () => this.setState({ sel: i }),
         spine: 'position:relative;flex-shrink:0;width:72px;height:' + (220 + (i % 3) * 18) + 'px;box-sizing:border-box;border-radius:5px;padding:10px 6px;cursor:pointer;display:flex;flex-direction:column;gap:8px;align-items:stretch;background:' + b.color + ';border:' + ring + ';' + (on ? 'transform:translateY(-10px)' : '') };
     });
@@ -327,8 +330,8 @@ class Component extends DCLogic {
     const listGood = picked.length === 2 && yesCount === 2;
     let listFb = '', listVerdict = '';
     if (picked.length !== 2) { listVerdict = 'Not finished yet'; listFb = 'Pick exactly two books. You have ' + picked.length + ' on your list.'; }
-    else if (listGood) { listVerdict = 'Great picks'; listFb = 'Machines That Read and Ghostwriters are both about AI and writing, and you found them just by looking at the books next to the one you came for. Neither has “writing” in its title, so a keyword search could have missed them.'; }
-    else { listVerdict = 'Not quite: ' + yesCount + ' of 2'; listFb = 'You found ' + yesCount + ' of the 2 best books. Look for the ones about language, authorship and writing. Pull a few more books off the shelf and read their descriptions.'; }
+    else if (listGood) { listVerdict = 'Great picks'; listFb = 'The Fourth Age and The Mind’s Mirror are written for general readers and look at how AI is changing the way people work, learn and create. You found them just by looking at the books next to the one you came for, and neither has “writing” in its title, so a keyword search could have missed them. Most of this shelf is technical, which is why Part 3 looks at other neighborhoods.'; }
+    else { listVerdict = 'Not quite: ' + yesCount + ' of 2'; listFb = 'You found ' + yesCount + ' of the 2 best books. Look for recent books written for general readers about how AI changes the way people work and create. Pull a few more books off the shelf and read their descriptions.'; }
 
     const shelfBits = (color) => {
       const s = (h, c) => 'display:block;width:14px;height:' + h + 'px;border-radius:2px;background:' + c;
@@ -364,7 +367,7 @@ class Component extends DCLogic {
       rules: [
         { n: 1, t: 'Letters, A to Z', ex: 'Q → QA' },
         { n: 2, t: 'Then the number', ex: '300 → 335 → 335.5' },
-        { n: 3, t: 'Then the cutter, as a decimal', ex: '.R53 → .S5' },
+        { n: 3, t: 'Then the cutter, as a decimal', ex: '.R453 → .R53 → .R58' },
         { n: 4, t: 'Then the year, oldest first', ex: '1983 → 1990' }
       ],
       doneCount: done,
